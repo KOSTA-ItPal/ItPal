@@ -1,6 +1,6 @@
-package main.java.vo;
+package main.java.model.vo;
 
-import main.java.util.Date;
+import main.java.model.util.Date;
 
 public class Payment {
 	private Date date;

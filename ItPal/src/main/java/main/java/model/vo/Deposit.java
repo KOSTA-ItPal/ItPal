@@ -1,4 +1,4 @@
-package main.java.vo;
+package main.java.model.vo;
 
 public class Deposit {
 	private String productName;
