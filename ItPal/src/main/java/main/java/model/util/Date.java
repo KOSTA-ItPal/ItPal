@@ -1,4 +1,4 @@
-package main.java.util;
+package main.java.model.util;
 
 public class Date {
 	private int year;

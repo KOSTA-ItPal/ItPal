@@ -1,8 +1,8 @@
-package main.java.vo;
+package main.java.model.vo;
 
 import java.util.ArrayList;
 
-import main.java.util.Date;
+import main.java.model.util.Date;
 
 public class User {
 	private String userName;
