@@ -1,5 +1,4 @@
 
-
 -- -----------------------------------------------------
 -- Table `itpal`.`user`
 -- -----------------------------------------------------
@@ -10,10 +9,10 @@ CREATE TABLE IF NOT EXISTS `itpal`.`user` (
   `phone_num` VARCHAR(45) NULL DEFAULT NULL,
   `email` VARCHAR(45) NULL DEFAULT NULL,
   `birthday` DATE NULL DEFAULT NULL,
+  `budget_set` INT NULL,
+  `save_set` INT NULL,
   PRIMARY KEY (`user_id`)
- );
- 
- desc user;
+);
 
 
 -- -----------------------------------------------------
@@ -31,7 +30,6 @@ CREATE TABLE IF NOT EXISTS `itpal`.`account` (
     REFERENCES `itpal`.`user` (`user_id`)
 );
 
-desc account;
 
 -- -----------------------------------------------------
 -- Table `itpal`.`bank`
@@ -39,25 +37,26 @@ desc account;
 CREATE TABLE IF NOT EXISTS `itpal`.`bank` (
   `bank_name` VARCHAR(45) NOT NULL,
   `bank_type` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`bank_name`));
+  PRIMARY KEY (`bank_name`)
+);
 
-desc bank;
 
 -- -----------------------------------------------------
 -- Table `itpal`.`card`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itpal`.`card` (
-  `card_name` VARCHAR(45) NOT NULL,
-  `img_url` VARCHAR(200) NULL DEFAULT NULL,
-  `c_url` VARCHAR(200) NULL DEFAULT NULL,
-  `company_name` VARCHAR(45) NULL DEFAULT NULL,
-  `card_detail` VARCHAR(200) NULL DEFAULT NULL,
-  `annual_fee` INT NULL DEFAULT NULL,
-  `card_type` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`card_name`)
+  `card_no` INT NOT NULL AUTO_INCREMENT,
+  `card_name` VARCHAR(50) NOT NULL,
+  `img_url` VARCHAR(2000) NOT NULL,
+  `c_url` VARCHAR(2000) NOT NULL,
+  `company_name` VARCHAR(45) NOT NULL,
+  `card_detail` VARCHAR(2000) NOT NULL,
+  `annual_fee` INT NOT NULL,
+  `card_type` VARCHAR(45) NOT NULL,
+  `view` INT NOT NULL,
+  PRIMARY KEY (`card_no`)
 );
 
-desc card;
 
 -- -----------------------------------------------------
 -- Table `itpal`.`benefit`
@@ -71,51 +70,61 @@ CREATE TABLE IF NOT EXISTS `itpal`.`benefit` (
   `travel` INT NULL DEFAULT NULL,
   `digital_content` INT NULL DEFAULT NULL,
   `cvs` INT NULL DEFAULT NULL,
-  `Card_card_name` VARCHAR(45) NOT NULL,
-  CONSTRAINT `fk_Benefit_Card1`
-    FOREIGN KEY (`Card_card_name`)
-    REFERENCES `itpal`.`card` (`card_name`)
+  `card_card_no` INT NOT NULL,
+  CONSTRAINT `fk_benefit_card1`
+    FOREIGN KEY (`card_card_no`)
+    REFERENCES `itpal`.`card` (`card_no`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
 );
 
-desc benefit;
 -- -----------------------------------------------------
 -- Table `itpal`.`deposit`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itpal`.`deposit` (
-  `D_id` INT NOT NULL,
-  `product_name` VARCHAR(45) NOT NULL,
-  `pre_tax_rate` DECIMAL(10,0) NOT NULL,
-  `after_tax_rate` DECIMAL(10,0) NOT NULL,
+  `D_no` INT NOT NULL AUTO_INCREMENT,
+  `product_name` VARCHAR(50) NOT NULL,
+  `before_tax_rate` DECIMAL(2,2) NOT NULL,
+  `after_tax_rate` DECIMAL(2,2) NOT NULL,
   `target` VARCHAR(45) NOT NULL,
   `cal_method` VARCHAR(45) NOT NULL,
   `prime_cond` VARCHAR(45) NOT NULL,
-  `D_url` VARCHAR(200) NOT NULL,
+  `D_url` VARCHAR(2000) NOT NULL,
   `register_type` VARCHAR(45) NOT NULL,
   `deposit_type` VARCHAR(45) NOT NULL,
-  `Bank_bank_name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`D_id`),
-  CONSTRAINT `fk_Deposit_Bank1`
-    FOREIGN KEY (`Bank_bank_name`)
+  `deposit_period` INT NOT NULL,
+  `bank_bank_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`D_no`),
+  CONSTRAINT `fk_deposit_bank1`
+    FOREIGN KEY (`bank_bank_name`)
     REFERENCES `itpal`.`bank` (`bank_name`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
 );
 
-desc deposit;
 
 -- -----------------------------------------------------
 -- Table `itpal`.`payment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itpal`.`payment` (
-  `P_id` INT NOT NULL,
+  `P_no` INT NOT NULL AUTO_INCREMENT,
   `date` DATE NULL DEFAULT NULL,
   `card_num` VARCHAR(45) NULL DEFAULT NULL,
   `store` VARCHAR(45) NULL DEFAULT NULL,
   `pay` INT NULL DEFAULT NULL,
   `category` VARCHAR(45) NULL DEFAULT NULL,
   `User_user_id` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`P_id`),
+  PRIMARY KEY (`P_no`),
   CONSTRAINT `fk_Payment_User`
     FOREIGN KEY (`User_user_id`)
     REFERENCES `itpal`.`user` (`user_id`)
- );
- 
- desc payment;
+);
+
+desc account;
+desc bank;
+desc benefit;
+desc card;
+desc deposit;
+desc payment;
+desc user;
+
