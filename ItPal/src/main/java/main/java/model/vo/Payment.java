@@ -8,15 +8,17 @@ public class Payment {
 	private String store;
 	private int pay;
 	private String category;
+	private User user;
 	
 	public Payment() {}
 	
-	public Payment(Date date, String cardNum, String store, int pay, String category) {
+	public Payment(Date date, String cardNum, String store, int pay, String category, User user) {
 		this.date = date;
 		this.cardNum = cardNum;
 		this.store = store;
 		this.pay = pay;
 		this.category = category;
+		this.user = user;
 	}
 
 	public Date getDate() {
@@ -38,11 +40,15 @@ public class Payment {
 	public String getCategory() {
 		return category;
 	}
+	
+	public User getUser() {
+		return user;
+	}
 
 	@Override
 	public String toString() {
 		return "Payment [date=" + date + ", cardNum=" + cardNum + ", store=" + store + ", pay=" + pay + ", category="
-				+ category + "]";
+				+ category + ", user=" + user + "]";
 	}
 	
 }

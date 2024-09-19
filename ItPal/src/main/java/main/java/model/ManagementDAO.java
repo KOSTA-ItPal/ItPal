@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import main.java.model.vo.Account;
@@ -19,35 +20,36 @@ public interface ManagementDAO {
 	
 /*MGMT 1*/	
 	//소비 현황(총 지출액)
-	int showSpendStatus(User user) throws SQLException;
+	long showSpendStatus(User user, int year, int month) throws SQLException;
 	
 	//월 예산 설정
-	void setMonthBudget(User user, int budget) throws SQLException;
-	int gettMonthBudget(User user) throws SQLException;
+	void setMonthBudget(User user, long budget) throws SQLException;
+	long getMonthBudget(User user) throws SQLException;
 	
 	//권장 소비 지출
-	int showRecommendSpend(User user) throws SQLException;
+	long showRecommendSpend(User user) throws SQLException;
 
 /*MGMT 2*/
 	//계좌 목록 보기
 	ArrayList<Account> showUserAsset(User user)throws SQLException;
 	
 	//자산 합계 보기
-	int getTotalAsset(User user) throws SQLException;
+	long getTotalAsset(User user) throws SQLException;
 
 /*MGMT 3*/
 	//목표액 설정
-	void setSaving(User user, int save) throws SQLException;
-	int getSaving(User user) throws SQLException;
+	void setSaving(User user, long save) throws SQLException;
+	long getSaving(User user) throws SQLException;
 	//목표 달성 비율
-	int getAchievementRate(User user) throws SQLException;
+	double getAchievementRate(User user) throws SQLException;
 	
 /*MGMT 4*/
 	//소비패턴 한눈에 보기 (높은 비중으로 정렬)
-	Map<String, Integer> getPaymentPattern(User user) throws SQLException;
+	HashMap<String, Long> getPaymentPattern(User user) throws SQLException;
 	
 	//4개월 치 전원 데이터 
-	ArrayList<Integer> showSpendStatus(User user, int month) throws SQLException;
+	HashMap<Long, Long> showSpendStatusList(User user)throws SQLException;
+	ArrayList<Long> showSpendStatusSum(User user) throws SQLException;
 	
 	
 }

@@ -4,11 +4,11 @@ public class Account {
 	private String accountNum;
 	private String accountType;
 	private String bankName;
-	private int balance;
+	private long balance;
 	
 	public Account() {}
 	
-	public Account(String accountNum, String accountType, String bankName, int balance) {
+	public Account(String accountNum, String accountType, String bankName, long balance) {
 		this.accountNum = accountNum;
 		this.accountType = accountType;
 		this.bankName = bankName;
@@ -23,7 +23,7 @@ public class Account {
 		return bankName;
 	}
 
-	public int getBalance() {
+	public long getBalance() {
 		return balance;
 	}
 
@@ -43,7 +43,7 @@ public class Account {
 		this.bankName = bankName;
 	}
 
-	public void setBalance(int balance) {
+	public void setBalance(long balance) {
 		this.balance = balance;
 	}
 

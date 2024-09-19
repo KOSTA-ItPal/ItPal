@@ -2,33 +2,46 @@ package main.java.model.vo;
 
 import java.util.ArrayList;
 
-import main.java.model.util.Date;
-
 public class User {
 	private String userName;
 	private String userId;
 	private String userPwd;
 	private String phoneNum;
 	private String email;
-	private Date BirthDay;
+	private String BirthDay;
+	private long budgetSet;
+	private long saveSet;
 	private ArrayList<Payment> paymentList = new ArrayList<>();
 	private ArrayList<Account> accountList = new ArrayList<>();
 	
 	public User() {}
-	
-	public User(String userName, String userId, String userPwd, String phoneNum, String email, Date birthDay,
-			ArrayList<Payment> paymentList, ArrayList<Account> accountList) {
-		super();
+
+	public User(String userName, String userId, String userPwd, String phoneNum, String email, String birthDay,
+			long budgetSet, long saveSet) {
 		this.userName = userName;
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.phoneNum = phoneNum;
 		this.email = email;
 		BirthDay = birthDay;
+		this.budgetSet = budgetSet;
+		this.saveSet = saveSet;
+	}
+
+	public User(String userName, String userId, String userPwd, String phoneNum, String email, String birthDay,
+			long budgetSet, long saveSet, ArrayList<Payment> paymentList, ArrayList<Account> accountList) {
+		this.userName = userName;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.phoneNum = phoneNum;
+		this.email = email;
+		BirthDay = birthDay;
+		this.budgetSet = budgetSet;
+		this.saveSet = saveSet;
 		this.paymentList = paymentList;
 		this.accountList = accountList;
 	}
-
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -69,11 +82,11 @@ public class User {
 		this.email = email;
 	}
 
-	public Date getBirthDay() {
+	public String getBirthDay() {
 		return BirthDay;
 	}
 
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(String birthDay) {
 		BirthDay = birthDay;
 	}
 
@@ -93,11 +106,27 @@ public class User {
 		this.accountList = accountList;
 	}
 
+	public long getBudgetSet() {
+		return budgetSet;
+	}
+
+	public void setBudgetSet(long budgetSet) {
+		this.budgetSet = budgetSet;
+	}
+
+	public long getSaveSet() {
+		return saveSet;
+	}
+
+	public void setSaveSet(long saveSet) {
+		this.saveSet = saveSet;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userName=" + userName + ", userId=" + userId + ", userPwd=" + userPwd + ", phoneNum=" + phoneNum
-				+ ", email=" + email + ", BirthDay=" + BirthDay + ", paymentList=" + paymentList + ", accountList="
-				+ accountList + "]";
+				+ ", email=" + email + ", BirthDay=" + BirthDay + ", budgetSet=" + budgetSet + ", saveSet=" + saveSet
+				+ ", paymentList=" + paymentList + ", accountList=" + accountList + "]";
 	}
 	
 }
