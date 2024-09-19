@@ -1,4 +1,4 @@
-package main.java.model.vo;
+package model.vo;
 
 public class Card {
 	//변경 : annualFee의 타입을 int에서 String으로 수정

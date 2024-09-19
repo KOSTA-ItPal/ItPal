@@ -1,9 +1,8 @@
-package main.java.model.vo;
+package model.vo;
 
-import main.java.model.util.Date;
 
 public class Payment {
-	private Date date;
+	private String date;
 	private String cardNum;
 	private String store;
 	private int pay;
@@ -12,7 +11,7 @@ public class Payment {
 	
 	public Payment() {}
 	
-	public Payment(Date date, String cardNum, String store, int pay, String category, User user) {
+	public Payment(String date, String cardNum, String store, int pay, String category, User user) {
 		this.date = date;
 		this.cardNum = cardNum;
 		this.store = store;
@@ -21,7 +20,7 @@ public class Payment {
 		this.user = user;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 

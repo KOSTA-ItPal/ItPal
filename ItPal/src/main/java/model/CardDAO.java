@@ -1,4 +1,4 @@
-package main.java.model;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import main.java.model.vo.Card;
-import main.java.model.vo.User;
+import model.vo.Card;
+import model.vo.User;
+
 
 public interface CardDAO {
 	

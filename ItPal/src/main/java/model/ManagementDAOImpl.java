@@ -1,4 +1,4 @@
-package main.java.model;
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,11 +10,17 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import config.ServerInfo;
-import main.java.model.vo.Account;
-import main.java.model.vo.User;
+import model.vo.Account;
+import model.vo.User;
 
 public class ManagementDAOImpl implements ManagementDAO{
+	
+	private DataSource ds;
 	
 	//싱글톤
 	private static ManagementDAOImpl dao = new ManagementDAOImpl();
@@ -23,19 +29,18 @@ public class ManagementDAOImpl implements ManagementDAO{
 	//DriverManager 방식
 	private ManagementDAOImpl() {
 		try {
-			Class.forName(ServerInfo.DRIVER_NAME);
-			System.out.println("Driver Loading 성공...");
-			
-		} catch (ClassNotFoundException e) {
-			System.out.println("Driver Loading 실패");
+			InitialContext ic = new InitialContext();
+			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
+			System.out.println("DataSource lookup...Success~~!!");
+		}catch(NamingException e) {
+			System.out.println("DataSource lookup...Fail~~!!");
 		}
 	}
 	
 	@Override
 	public Connection getConnect() throws SQLException {
-		Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASSWORD);
-		System.out.println("DB Connection 성공");
-		return conn;
+		System.out.println("디비 연결 성공...");
+		return ds.getConnection();
 	}
 
 	@Override

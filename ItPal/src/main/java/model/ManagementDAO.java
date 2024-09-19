@@ -1,4 +1,4 @@
-package main.java.model;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,10 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-import main.java.model.vo.Account;
-import main.java.model.vo.User;
+import model.vo.Account;
+import model.vo.User;
 
 public interface ManagementDAO {
 	

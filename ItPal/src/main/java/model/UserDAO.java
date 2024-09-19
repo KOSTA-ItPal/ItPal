@@ -1,11 +1,11 @@
-package main.java.model;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import main.java.model.vo.User;
+import model.vo.User;
 
 public interface UserDAO {
 	
@@ -18,5 +18,5 @@ public interface UserDAO {
 	String findUserId(String userName, String phoneNum ) throws SQLException;
 	String findUserPwd(String userId, String userName, String phoneNum ) throws SQLException;
 	User login(String userId, String userPwd) throws SQLException;
-	void logout() throws SQLException;
+
 }

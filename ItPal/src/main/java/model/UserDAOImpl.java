@@ -1,4 +1,4 @@
-package main.java.model;
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,39 +6,35 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import main.java.model.util.Date;
-import main.java.model.vo.User;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+import model.vo.User;
 
 public class UserDAOImpl implements UserDAO{
-	
-	static String driver = "com.mysql.cj.jdbc.Driver";
-	static String url = "jdbc:mysql://127.0.0.1:3306/itpal?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8";
-	static String user = "root";
-	static String pass = "1234";
+
+	private DataSource ds;
 	
 	//싱글톤
 		private static UserDAOImpl dao = new UserDAOImpl();
+		public static UserDAOImpl getInstance() {return dao;}
+		
 		private UserDAOImpl() {
 			try {
-				Class.forName(driver);
-				System.out.println("1. 드라이버 로딩 성공");
-			} catch (ClassNotFoundException e) {
-				System.out.println("1. 드라이버 로딩 실패");
-			}finally {
-				System.out.println("1. 드라이버 로딩 완료");
+				InitialContext ic = new InitialContext();
+				ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
+				System.out.println("DataSource lookup...Success~~!!");
+			}catch(NamingException e) {
+				System.out.println("DataSource lookup...Fail~~!!");
 			}
 		}
-		public static UserDAOImpl getInstance() {
-			return dao;
-		}
-		
-	/////////////////////////////// 공통 로직 //////////////////////////////////
+
 	
 	@Override
 	public Connection getConnect() throws SQLException {
-		Connection conn = DriverManager.getConnection(url, user, pass);
-		System.out.println("2. DB 연결 성공");
-		return conn;
+		System.out.println("디비 연결 성공...");
+		return ds.getConnection();
 	}
 
 	@Override
@@ -53,7 +49,6 @@ public class UserDAOImpl implements UserDAO{
 		closeAll(ps, conn);
 	}
 	
-	/////////////////////////////// 비즈니스 로직 //////////////////////////////////
 
 	@Override
 	public void register(User user) throws SQLException {
@@ -183,29 +178,6 @@ public class UserDAOImpl implements UserDAO{
 		return user;
 	} //login
 
-	@Override
-	public void logout() throws SQLException {
-		// QUES : DAO가 아닌 서블릿 단에서 해결하면 되지 않을까?
-	} //logout
 	
-	public static void main(String[] args) throws SQLException {
-		System.out.println("0. UserDAOImpl.getInstance() ======================================================");
-		UserDAOImpl dao = UserDAOImpl.getInstance();
-		
-		System.out.println("\n1. register() ======================================================");
-//		dao.register(new User("user_id", "user_name", "user_pwd", "phone_num", "email", "2020-05-15", 10, 50));
-		
-		System.out.println("\n2. findUserId() ======================================================");
-		String userID = dao.findUserId("user_name", "phone_num");
-		System.out.println(userID);
-		
-		System.out.println("\n3. findUserPwd() ======================================================");
-		String userPwd = dao.findUserPwd("user_id","user_name", "phone_num");
-		System.out.println(userPwd);
-
-		System.out.println("\n4. login() ======================================================");
-		User user = dao.login("user_id", "user_pwd");
-		System.out.println(user);
-	}
 
 }

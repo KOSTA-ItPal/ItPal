@@ -1,4 +1,4 @@
-package main.java.model;
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,34 +7,37 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import config.ServerInfo;
-import main.java.model.vo.Bank;
-import main.java.model.vo.Deposit;
+import model.vo.Bank;
+import model.vo.Deposit;
 
 public class DepositDAOImpl implements DepositDAO{
+	
+	private DataSource ds;
 	
 	//싱글톤
 	private static DepositDAOImpl dao = new DepositDAOImpl();
 	public static DepositDAOImpl getInstance() { return dao;}
 	
-	//DriverManager 방식
 	private DepositDAOImpl() {
 		try {
-			Class.forName(ServerInfo.DRIVER_NAME);
-			System.out.println("Driver Loading 성공...");
-			
-		} catch (ClassNotFoundException e) {
-			System.out.println("Driver Loading 실패");
+			InitialContext ic = new InitialContext();
+			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
+			System.out.println("DataSource lookup...Success~~!!");
+		}catch(NamingException e) {
+			System.out.println("DataSource lookup...Fail~~!!");
 		}
 	}
 	
 
 	@Override
 	public Connection getConnect() throws SQLException {
-		
-		Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASSWORD);
-		System.out.println("DB Connection 성공");
-		return conn;
+		System.out.println("디비 연결 성공...");
+		return ds.getConnection();
 	}
 
 	@Override
