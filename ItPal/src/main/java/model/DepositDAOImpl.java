@@ -16,29 +16,52 @@ import model.vo.Bank;
 import model.vo.Deposit;
 
 public class DepositDAOImpl implements DepositDAO{
-	
-	private DataSource ds;
-	
 	//싱글톤
-	private static DepositDAOImpl dao = new DepositDAOImpl();
-	public static DepositDAOImpl getInstance() { return dao;}
-	
-	private DepositDAOImpl() {
-		try {
-			InitialContext ic = new InitialContext();
-			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
-			System.out.println("DataSource lookup...Success~~!!");
-		}catch(NamingException e) {
-			System.out.println("DataSource lookup...Fail~~!!");
+		private static DepositDAOImpl dao = new DepositDAOImpl();
+		public static DepositDAOImpl getInstance() { return dao;}
+		
+		//DriverManager 방식
+		private DepositDAOImpl() {
+			try {
+				Class.forName(ServerInfo.DRIVER_NAME);
+				System.out.println("Driver Loading 성공...");
+				
+			} catch (ClassNotFoundException e) {
+				System.out.println("Driver Loading 실패");
+			}
 		}
-	}
-	
+		
 
-	@Override
-	public Connection getConnect() throws SQLException {
-		System.out.println("디비 연결 성공...");
-		return ds.getConnection();
-	}
+		@Override
+		public Connection getConnect() throws SQLException {
+			
+			Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASSWORD);
+			System.out.println("DB Connection 성공");
+			return conn;
+		}
+	
+//	private DataSource ds;
+//	
+//	//싱글톤
+//	private static DepositDAOImpl dao = new DepositDAOImpl();
+//	public static DepositDAOImpl getInstance() { return dao;}
+//	
+//	private DepositDAOImpl() {
+//		try {
+//			InitialContext ic = new InitialContext();
+//			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
+//			System.out.println("DataSource lookup...Success~~!!");
+//		}catch(NamingException e) {
+//			System.out.println("DataSource lookup...Fail~~!!");
+//		}
+//	}
+//	
+//
+//	@Override
+//	public Connection getConnect() throws SQLException {
+//		System.out.println("디비 연결 성공...");
+//		return ds.getConnection();
+//	}
 
 	@Override
 	public void closeAll(PreparedStatement ps, Connection conn) throws SQLException {

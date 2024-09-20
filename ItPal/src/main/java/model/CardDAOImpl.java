@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,11 +11,42 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import config.ServerInfo;
 import model.vo.Card;
 import model.vo.User;
 
 public class CardDAOImpl implements CardDAO {
-	
+//	private static CardDAOImpl dao = new CardDAOImpl();
+//    private CardDAOImpl() {
+//          // 드라이버 로딩 -- 후에 데이터 소스로 변경 예정
+//          try {
+//              Class.forName(ServerInfo.DRIVER_NAME);
+//              System.out.println("Driver Loading 성공");
+//          } catch (ClassNotFoundException e) {
+//              System.out.println("드라이버 로딩 실패: " + e.getMessage());
+//          }
+//      }
+//  public static CardDAOImpl getInstance() {
+//      return dao;
+//  }
+//  
+//  @Override
+//  public Connection getConnect() {
+//      Connection conn = null;
+//      try {
+//          // DB 연결 시도
+//          conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASSWORD);
+//          if (conn != null) {
+//              System.out.println("DB 연결 성공");
+//          } else {
+//              System.out.println("DB 연결 실패");
+//          }
+//      } catch (SQLException e) {
+//          System.out.println("DB 연결 중 오류 발생: " + e.getMessage());
+//      }
+//      return conn;
+//  }	
+  
 	private DataSource ds;
 	
 	// 싱글톤

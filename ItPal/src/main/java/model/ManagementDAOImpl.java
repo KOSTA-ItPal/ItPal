@@ -19,6 +19,37 @@ import model.vo.Account;
 import model.vo.User;
 
 public class ManagementDAOImpl implements ManagementDAO{
+//	// 싱글톤
+//    private static ManagementDAOImpl dao = new ManagementDAOImpl();
+//      private ManagementDAOImpl() {
+//            // 드라이버 로딩 -- 후에 데이터 소스로 변경 예정
+//            try {
+//                Class.forName(ServerInfo.DRIVER_NAME);
+//                System.out.println("Driver Loading 성공");
+//            } catch (ClassNotFoundException e) {
+//                System.out.println("드라이버 로딩 실패: " + e.getMessage());
+//            }
+//        }
+//    public static ManagementDAOImpl getInstance() {
+//        return dao;
+//    }
+//  @Override
+//    public Connection getConnect() {
+//        Connection conn = null;
+//        try {
+//            // DB 연결 시도
+//            conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASSWORD);
+//            if (conn != null) {
+//                System.out.println("DB 연결 성공");
+//            } else {
+//                System.out.println("DB 연결 실패");
+//            }
+//        } catch (SQLException e) {
+//            System.out.println("DB 연결 중 오류 발생: " + e.getMessage());
+//        }
+//        return conn;
+//    }
+	
 	
 	private DataSource ds;
 	
@@ -241,9 +272,9 @@ public class ManagementDAOImpl implements ManagementDAO{
 	}
 
 /*MGMT 4*/
-//소비패턴 한눈에 보기 (높은 비중으로 정렬)
+//소비패턴 한눈에 보기 :  소비 횟수 순(혜린언니)
 	@Override
-	public HashMap<String, Long> getPaymentPattern(User user) throws SQLException {
+	public HashMap<String, Long> getPaymentPatternCnt(User user) throws SQLException {
 		HashMap<String, Long> paymentPattern = new HashMap<>();
 		
 		String query="SELECT category, COUNT(*) AS category_count\r\n"
@@ -268,9 +299,56 @@ public class ManagementDAOImpl implements ManagementDAO{
 		}
 		return paymentPattern;
 	}
-	//4개월 치 전원 데이터 
+	
+	
+	
 	@Override
-	//추가 : 4개월치 전원 데이터 목록을 받는 메소드 ('월-월 합계' 형식으로)
+	public HashMap<String, Long> getPaymentPatternSum(User user) throws SQLException {
+		//1. 유저 아이디를 찾음
+		String userId = user.getUserId();
+		
+		//2. 해당 유저가 가장 많이 소비한 카테고리를 3개 찾음 (가장 많은 액수를 소비한 카테고리?)
+		HashMap<String, Long> map = new HashMap<String, Long>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("select t.category, t.sum from (select user_id, category, sum(pay) sum from payment ");
+		buffer.append("where user_id=? group by 1, 2 order by 3 desc) t");
+		String query = buffer.toString();
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, userId);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				map.put(rs.getString(1), rs.getLong(2));
+			}
+			
+			if(map.isEmpty()) {
+				System.err.println("[Error] : 해당 유저의 소비 정보가 비어 있음");
+			} //if
+			
+			System.out.println("searchCategory() 실행 성공");
+		} finally {
+			closeAll(rs, ps, conn); //자원 반환
+			System.out.println("searchCategory() 실행 완료");
+		} //catch-finally
+		
+		return map;
+	} //searchCategory
+	
+	
+	
+	
+	
+/* 지남언니 : 월별 소비액 합계 : 전월 대비 지출액 증감  */
+	//6개월 치 전원 데이터 
+	@Override
+	//추가 : 6개월치 전원 데이터 목록을 받는 메소드 ('월-월 합계' 형식으로)
 	public HashMap<Long, Long> showSpendStatusList(User user) throws SQLException{
 		//1. 유저 아이디를 찾음
 		String userId = user.getUserId();
@@ -283,8 +361,8 @@ public class ManagementDAOImpl implements ManagementDAO{
 		
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("SELECT date, month(date), sum(pay) over(partition by month(date)) ");
-		buffer.append("FROM payment WHERE user_id=? and (date BETWEEN DATE_ADD(NOW(), INTERVAL -4 MONTH )");
-		buffer.append("AND NOW()) and month(curdate())-month(date)<4");
+		buffer.append("FROM payment WHERE user_id=? and (date BETWEEN DATE_ADD(NOW(), INTERVAL -6 MONTH )");
+		buffer.append("AND NOW()) and month(curdate())-month(date)<6");
 		String query = buffer.toString();
 		
 		try {
@@ -311,20 +389,4 @@ public class ManagementDAOImpl implements ManagementDAO{
 		return map;
 	}
 
-//QUES : 인자값으로 month가 안 들어가도 될 것 같음
-	//변경 : month를 인자값에서 제거
-	@Override
-	public ArrayList<Long> showSpendStatusSum(User user) throws SQLException { //4개월치 전원 데이터의 월별 합을 구하는 메소드
-		HashMap<Long, Long> map = showSpendStatusList(user);
-		ArrayList<Long> list = new ArrayList<Long>(); //map에서 월 데이터가 아닌 합계 데이터만 가져올 리스트 생성
-		try {
-			map.forEach((k,v)->list.add(v));
-			
-			System.out.println("showSpendStatusSum() 실행 성공");
-		} finally {
-			System.out.println("showSpendStatusSum() 실행 완료");
-		} //try-finally
-		
-		return list;
-	}
 }
