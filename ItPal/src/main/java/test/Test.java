@@ -65,12 +65,12 @@ public class Test {
 		//User user2 = UserDao.login("user2", "pass2");
 		
 		System.out.println("\nuser1 -----------------------------------------------------------------------------------");
-		ArrayList<ArrayList<Card>> listRecommAll1 = cardDao.searchByCategory(user1);
-		int count1 = 1;
-		for (ArrayList<Card> listRecomm : listRecommAll1) {
-			System.out.println("\n카테고리별 카드 목록 "+count1+++" ---------------------------------------------------------------");
-			listRecomm.stream().forEach(i->System.out.println(i));
-		}
+		//ArrayList<ArrayList<Card>> listRecommAll1 = cardDao.searchByCategory(user1);
+//		int count1 = 1;
+//		for (ArrayList<Card> listRecomm : listRecommAll1) {
+//			System.out.println("\n카테고리별 카드 목록 "+count1+++" ---------------------------------------------------------------");
+//			listRecomm.stream().forEach(i->System.out.println(i));
+//		}
 		
 //		System.out.println("\nuser2 -----------------------------------------------------------------------------------");
 //		ArrayList<ArrayList<Card>> listRecommAll2 = cardDao.searchByCategory(user2);

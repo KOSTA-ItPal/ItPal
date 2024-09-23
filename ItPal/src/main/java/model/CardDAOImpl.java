@@ -221,8 +221,11 @@ public class CardDAOImpl implements CardDAO {
 		return list2;
 	} //searchByCategory
 
+	
+	
+	
 	//추가 : 유저가 가장 많이 소비한 카테고리를 3개 찾는 메소드
-	private ArrayList<String> searchCategory(User user) throws SQLException{
+	public ArrayList<String> searchCategory(User user) throws SQLException{
 		//1. 유저 아이디를 찾음
 		String userId = user.getUserId();
 		
@@ -262,35 +265,36 @@ public class CardDAOImpl implements CardDAO {
 	
 
 	
-	@Override
-	public ArrayList<ArrayList<Card>> searchByCategory(User user) throws SQLException {
-		//1. 유저 아이디를 찾음
-		//2. 해당 유저가 가장 많이 소비한 카테고리를 3개 찾음 (가장 많은 액수를 소비한 카테고리?)
-		ArrayList<String> listCat = searchCategory(user); //카테고리를 받아온 리스트
-		
-		//3. 해당 카테고리의 혜택을 가진 카드 일련번호를 찾고, 상위 3개 카드 일련번호를 뽑음
-		//4. 해당 카드의 정보를 받아옴
-		ArrayList<ArrayList<Card>> listRecommAll = new ArrayList<>(); //모든 카테고리 카드 리스트
-		
-		try {
-			for (String category : listCat) {
-				listRecommAll.add(searchCardsByCategory(category));
-			} //for
-			if (listRecommAll.isEmpty()) {
-				System.err.println("[Error] : 카드 리스트가 비어 있음");
-			} //if
-			
-			System.out.println("searchByCategory() 실행 성공");
-		} finally {
-			System.out.println("searchByCategory() 실행 완료");
-		} //try-finally
-
-		return listRecommAll;
-	} //searchByCategory
+	/* searchByCategory*/
+//	@Override
+//	public ArrayList<ArrayList<Card>> RecommendCardByCategory(User user) throws SQLException {
+////		//1. 유저 아이디를 찾음
+////		//2. 해당 유저가 가장 많이 소비한 카테고리를 3개 찾음 (가장 많은 액수를 소비한 카테고리?)
+////		ArrayList<String> listCat = searchCategory(user); //카테고리를 받아온 리스트
+//		
+//		//3. 해당 카테고리의 혜택을 가진 카드 일련번호를 찾고, 상위 3개 카드 일련번호를 뽑음
+//		//4. 해당 카드의 정보를 받아옴
+//		ArrayList<ArrayList<Card>> listRecommAll = new ArrayList<>(); //모든 카테고리 카드 리스트
+//		
+//		try {
+//			for (String category : listCat) {
+//				listRecommAll.add(searchCardsByCategory(category));
+//			} //for
+//			if (listRecommAll.isEmpty()) {
+//				System.err.println("[Error] : 카드 리스트가 비어 있음");
+//			} //if
+//			
+//			System.out.println("searchByCategory() 실행 성공");
+//		} finally {
+//			System.out.println("searchByCategory() 실행 완료");
+//		} //try-finally
+//
+//		return listRecommAll;
+//	} //searchByCategory
 	
 	
 	//추가 : 카테고리별 카드 목록을 받아오는 메소드
-	private ArrayList<Card> searchCardsByCategory(String category) throws SQLException {
+	public ArrayList<Card> searchCardsByCategory(String category) throws SQLException {
 		ArrayList<Card> listRecomm = new ArrayList<>(); //카테고리별 카드 리스트
 		
 		StringBuffer buffer = new StringBuffer();
