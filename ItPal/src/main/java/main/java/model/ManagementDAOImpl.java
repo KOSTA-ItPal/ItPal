@@ -322,4 +322,40 @@ public class ManagementDAOImpl implements ManagementDAO{
 		
 		return list;
 	}
+	
+	public static void main(String[] args) throws SQLException {
+		System.out.println("0. ManagementDAOImpl.getInstance() ======================================================");
+		ManagementDAOImpl ManagementDao = ManagementDAOImpl.getInstance();
+		System.out.println("\n0. ManagementDAOImpl.getInstance() ======================================================");
+		UserDAOImpl UserDao = UserDAOImpl.getInstance();
+		System.out.println("\n0. Userdao.login() ======================================================");
+		User user1 = UserDao.login("user1", "pass1"); //지출 데이터가 존재하는 유저
+		User user2 = UserDao.login("user_id", "user_pwd"); //지출 데이터가 존재하지 않는 유저
+		
+		System.out.println("\n1. showSpendStatus() ======================================================");
+		System.out.println("\nuser1 -----------------------------------------------------------------------------------");
+//		int spendSum1 = ManagementDao.showSpendStatus(user1);
+//		System.out.println(spendSum1);
+		
+		System.out.println("\nuser2 -----------------------------------------------------------------------------------");
+//		int spendSum2 = ManagementDao.showSpendStatus(user2);
+//		System.out.println(spendSum2); //지출 데이터가 존재하지 않을 시 지출 총계가 0으로 출력됨
+		
+		System.out.println("\n2. getPaymentPattern() ======================================================");
+		ManagementDao.getPaymentPattern(user1).forEach((category, sum)->System.out.println("[카테고리] : " + category + "[합계] : " + sum));
+	
+		System.out.println("\n3. showSpendStatusList() ======================================================");
+		System.out.println("\nuser1 -----------------------------------------------------------------------------------");
+		ManagementDao.showSpendStatusList(user1).forEach((k,v)->System.out.println(k+"/"+v));
+		
+		System.out.println("\nuser2 -----------------------------------------------------------------------------------");
+		ManagementDao.showSpendStatusList(user2).forEach((k,v)->System.out.println(k+"/"+v));
+		
+		System.out.println("\n4. showSpendStatusSum() ======================================================");
+		System.out.println("\nuser1 -----------------------------------------------------------------------------------");
+		ManagementDao.showSpendStatusSum(user1).forEach(i->System.out.println(i));
+		
+		System.out.println("\nuser2 -----------------------------------------------------------------------------------");
+		ManagementDao.showSpendStatusSum(user2).forEach(i->System.out.println(i));
+	}
 }

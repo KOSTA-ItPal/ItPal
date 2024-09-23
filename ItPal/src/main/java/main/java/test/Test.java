@@ -19,7 +19,7 @@ public class Test {
 		DepositDAOImpl dao1 = DepositDAOImpl.getInstance();
 
 		System.out.println("1. 예적금 조회");
-		ArrayList<Deposit> deposits = dao1.showAllDeposit("적금");
+		ArrayList<Deposit> deposits = dao1.showAllDeposit();
 		for(Deposit d : deposits) {
 			System.out.println(d.toString());
 		}
@@ -27,7 +27,7 @@ public class Test {
 		
 		
 		System.out.println("예적금 필터");
-		ArrayList<Deposit> deposits2 = dao1.searchDeposit("1금융권", "12", "단리" );
+		ArrayList<Deposit> deposits2 = dao1.searchDeposit("예금", "1금융권", "12", "단리" );
 		for(Deposit d : deposits2) {
 			System.out.println(d.toString());
 		}
