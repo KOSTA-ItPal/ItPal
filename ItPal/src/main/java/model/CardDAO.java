@@ -22,9 +22,9 @@ public interface CardDAO {
 	ArrayList<Card> showHotCards()throws SQLException; //일련번호 카드 보여주기?
 	ArrayList<Card> showAllCards(String cardType)throws SQLException; //모든 카드 보여주기
 	ArrayList<Card> searchByCategory(String cardType, String category)throws SQLException; //카테고리별로 조회...추가 : cardType 인자값
-	
-/*CARD 2 : 카드 추천 3개만 */
-	ArrayList<ArrayList<Card>> searchByCategory(User user)throws SQLException;
+//	
+///*CARD 2 : 카드 추천 3개만 */
+//	ArrayList<ArrayList<Card>> RecommendCardByCategory(User user)throws SQLException;
 
 
 }

@@ -9,9 +9,10 @@ import model.DepositDAOImpl;
 import model.ManagementDAOImpl;
 import model.UserDAOImpl;
 import model.vo.Account;
-import model.vo.Card;
 import model.vo.Deposit;
 import model.vo.User;
+
+
 
 public class Test {
 
@@ -65,12 +66,12 @@ public class Test {
 		//User user2 = UserDao.login("user2", "pass2");
 		
 		System.out.println("\nuser1 -----------------------------------------------------------------------------------");
-		ArrayList<ArrayList<Card>> listRecommAll1 = cardDao.searchByCategory(user1);
-		int count1 = 1;
-		for (ArrayList<Card> listRecomm : listRecommAll1) {
-			System.out.println("\n카테고리별 카드 목록 "+count1+++" ---------------------------------------------------------------");
-			listRecomm.stream().forEach(i->System.out.println(i));
-		}
+		//ArrayList<ArrayList<Card>> listRecommAll1 = cardDao.searchByCategory(user1);
+//		int count1 = 1;
+//		for (ArrayList<Card> listRecomm : listRecommAll1) {
+//			System.out.println("\n카테고리별 카드 목록 "+count1+++" ---------------------------------------------------------------");
+//			listRecomm.stream().forEach(i->System.out.println(i));
+//		}
 		
 //		System.out.println("\nuser2 -----------------------------------------------------------------------------------");
 //		ArrayList<ArrayList<Card>> listRecommAll2 = cardDao.searchByCategory(user2);
@@ -86,7 +87,7 @@ public class Test {
 		DepositDAOImpl daoDeposit = DepositDAOImpl.getInstance();
 
 		System.out.println("1. 예적금 조회");
-		ArrayList<Deposit> deposits = daoDeposit.showAllDeposit("적금");
+		ArrayList<Deposit> deposits = daoDeposit.showAllDeposit();
 		for(Deposit d : deposits) {
 			System.out.println(d.toString());
 		}
@@ -94,7 +95,7 @@ public class Test {
 		
 		
 		System.out.println("예적금 필터");
-		ArrayList<Deposit> deposits2 = daoDeposit.searchDeposit("1금융권", "12", "단리" );
+		ArrayList<Deposit> deposits2 = daoDeposit.searchDeposit("예금", "1금융권", "12", "단리" );
 		for(Deposit d : deposits2) {
 			System.out.println(d.toString());
 		}

@@ -11,57 +11,32 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import config.ServerInfo;
 import model.vo.Bank;
 import model.vo.Deposit;
 
 public class DepositDAOImpl implements DepositDAO{
-	//싱글톤
-		private static DepositDAOImpl dao = new DepositDAOImpl();
-		public static DepositDAOImpl getInstance() { return dao;}
-		
-		//DriverManager 방식
-		private DepositDAOImpl() {
-			try {
-				Class.forName(ServerInfo.DRIVER_NAME);
-				System.out.println("Driver Loading 성공...");
-				
-			} catch (ClassNotFoundException e) {
-				System.out.println("Driver Loading 실패");
-			}
-		}
-		
-
-		@Override
-		public Connection getConnect() throws SQLException {
-			
-			Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASSWORD);
-			System.out.println("DB Connection 성공");
-			return conn;
-		}
+	private DataSource ds;
 	
-//	private DataSource ds;
-//	
-//	//싱글톤
-//	private static DepositDAOImpl dao = new DepositDAOImpl();
-//	public static DepositDAOImpl getInstance() { return dao;}
-//	
-//	private DepositDAOImpl() {
-//		try {
-//			InitialContext ic = new InitialContext();
-//			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
-//			System.out.println("DataSource lookup...Success~~!!");
-//		}catch(NamingException e) {
-//			System.out.println("DataSource lookup...Fail~~!!");
-//		}
-//	}
-//	
-//
-//	@Override
-//	public Connection getConnect() throws SQLException {
-//		System.out.println("디비 연결 성공...");
-//		return ds.getConnection();
-//	}
+	//싱글톤
+	private static DepositDAOImpl dao = new DepositDAOImpl();
+	public static DepositDAOImpl getInstance() { return dao;}
+	
+	private DepositDAOImpl() {
+		try {
+			InitialContext ic = new InitialContext();
+			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
+			System.out.println("DataSource lookup...Success~~!!");
+		}catch(NamingException e) {
+			System.out.println("DataSource lookup...Fail~~!!");
+		}
+	}
+	
+
+	@Override
+	public Connection getConnect() throws SQLException {
+		System.out.println("디비 연결 성공...");
+		return ds.getConnection();
+	}
 
 	@Override
 	public void closeAll(PreparedStatement ps, Connection conn) throws SQLException {
@@ -75,9 +50,9 @@ public class DepositDAOImpl implements DepositDAO{
 		closeAll(ps, conn);
 	}
 
-	//예적금 조회
+	//변경 : 인자값 depositType 삭제
 	@Override
-	public ArrayList<Deposit> showAllDeposit(String depositType) throws SQLException {
+	public ArrayList<Deposit> showAllDeposit() throws SQLException {
 		ArrayList<Deposit> list = new ArrayList<Deposit>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -88,11 +63,8 @@ public class DepositDAOImpl implements DepositDAO{
 			String query = "SELECT product_name, before_tax_rate, after_tax_rate, target, cal_method, prime_cond, d_url, "
 					+ "register_type, deposit_type, deposit_period, b.bank_name, b.bank_type "
 					+ "FROM deposit d JOIN bank b "
-					+ "ON (d.bank_name = b.bank_name) "
-					+ "WHERE d.deposit_type=?";
+					+ "ON (d.bank_name = b.bank_name) ";
 			ps = conn.prepareStatement(query);
-			
-			ps.setString(1, depositType);
 			
 			rs = ps.executeQuery();
 			
@@ -115,10 +87,11 @@ public class DepositDAOImpl implements DepositDAO{
 		}
 		return list;
 	}
-
-	//예적금 필터
+	
+	//변경 : 인자값 depositType 추가
 	@Override
-	public ArrayList<Deposit> searchDeposit(String bankType, String depositPeriod, String calMethodType) throws SQLException {
+	public ArrayList<Deposit> searchDeposit(String depositType, String bankType, String depositPeriod,
+			String calMethodType) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -126,18 +99,20 @@ public class DepositDAOImpl implements DepositDAO{
 		
 		String query = "SELECT d.product_name pname, d.before_tax_rate btr, d.after_tax_rate atr, d.target target, d.cal_method cmethod, d.prime_cond pcond, d.d_url durl, d.register_type rtype, d.deposit_type dtype, d.deposit_period dperiod, d.bank_name bname, b.bank_type btype FROM Deposit d "
 				+ "JOIN Bank b ON d.bank_name = b.bank_name "
-				+ "WHERE ('전체' = ? OR b.bank_type = ?) AND ('전체' = ? OR d.deposit_period = ?) AND ('전체' = ? OR d.cal_method = ?)";
+				+ "WHERE ('전체예적금' = ? OR d.deposit_type = ?) AND ('전체권역' = ? OR b.bank_type = ?) AND ('전체기간' = ? OR d.deposit_period = ?) AND ('전체방식' = ? OR d.cal_method = ?)";
 	   
 		try {
 			conn = getConnect();
 		    ps = conn.prepareStatement(query);
 		   
-		    ps.setString(1, bankType);
-		    ps.setString(2, bankType);
-		    ps.setString(3, depositPeriod);
-		    ps.setString(4, depositPeriod);
-		    ps.setString(5, calMethodType);
-		    ps.setString(6, calMethodType);
+		    ps.setString(1, depositType);
+		    ps.setString(2, depositType);
+		    ps.setString(3, bankType);
+		    ps.setString(4, bankType);
+		    ps.setString(5, depositPeriod);
+		    ps.setString(6, depositPeriod);
+		    ps.setString(7, calMethodType);
+		    ps.setString(8, calMethodType);
 		   
 		    rs = ps.executeQuery();
 		   

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -13,202 +13,197 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <title>잇플(ItPal):: 카드페이지</title>
-<style>
-@font-face {
-	font-family: "LINESeedKR-Th";
-	src:
-		url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Th.woff2");
-	font-weight: 700;
-	font-style: normal;
-}
 
-@font-face {
-	font-family: "LINESeedKR-Rg";
-	src:
-		url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Rg.woff2");
-	font-weight: 700;
-	font-style: normal;
-}
+<script>
+$(() => {
+    // 페이지 로드 시 기본적으로 신용카드 탭을 보여줍니다
+    showCardList("신용");
 
-@font-face {
-	font-family: "LINESeedKR-Bd";
-	src:
-		url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2");
-	font-weight: 700;
-	font-style: normal;
-}
+    // 신용카드 탭 클릭 시
+    $("#sinCard").click(function() {
+    	alert("신용");
+    	$(".categoryBox").css("background-color", "white");
+    	showCardList("신용");
+    });
 
-* {
-	font-family: "LINESeedKR-Bd";
-}
-
-.jumbotron {
-	border: 1px solid black;
-}
-
-.container {
-	padding: 0;
-	border: 1px solid red;
-}
-
-#cardCategoryContainer {
-	width: 100%;
-	height: 500px;
-	border: 1px solid black;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-	align-items: center;
-	background-color: lightgray;
-}
-
-#cardCategoryContainer>div {
-	width: 90%;
-	height: 35%;
-	border: 1px solid black;
-	background-color: white;
-}
-
-#cardRecommand {
-	width: 100%;
-	height: 200px;
-	margin-top: 20px;
-	background-color: rgb(163, 255, 214);
-	border-radius: 10px;
-	box-shadow: 0px 2px 60px 10px lightgray;
-}
-
-#cardSearchContainer {
-	width: 100%;
-	height: 500px;
-	background-color: lightgray;
-	margin-top: 200px;
-}
-
-#beforeLogin-BG {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-	position: relative; /* 부모 요소의 위치 설정 */
-	z-index: 1;
-	box-sizing: border-box;
-	border-radius: 10px;
-	align-items: center; /* 수직 가운데 정렬 */
-}
-
-#beforeLogin-BG-cardImg {
-	width: 110px;
-    height: 110px;
-    position: relative;
+    // 체크카드 탭 클릭 시
+    $("#checkCard").click(function() {
+    	alert("체크");
+    	$(".categoryBox").css("background-color", "white");
+    	showCardList("체크");
+    });
     
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	
-	background-color: #E9ECEF;
-	border-radius: 100%;
-}
+    
+ 	// AJAX로 카드 데이터를 가져와서 카드 리스트를 표시하는 함수
+    function showCardList(cardType) {
+        $.ajax({
+            url: "cardSearch.do",  // 서버측 서블릿 URL
+            type: "GET",
+            data: {cardType: cardType},  // 카드 타입 전송 (신용카드: sin, 체크카드: check)
+            dataType: "json",  // 서버에서 JSON 형식으로 데이터를 받음
+            
+            success: function(data) {
+               let cardHtml = '';
+                            
+               let cards = data.cards;
+               let details = data.splitDetails;
+               
+               console.log(data);
+               
+                // 카드 리스트 HTML 생성
+                cards.forEach(card => {
+                	
+					var cardDetails = '';
+                	var imgUrlHtml = '';
+					
+                	cardNo = card.cardNo;
+                	console.log(card.imgUrl);
+                	
+                	//카드 디테일 반복...
+                	details[cardNo].forEach(detail => {
+                		cardDetails += `<div>` + detail + `</div>`;
+                	});
+                	//카드 디테일 반복 끝...
+                    
+                	cardHtml += `
+               		<div class = "cards">
+	                	<div class ="card">						
+		                	<div class="card_img">
+								<p class="img">
+									<img src=`+ card.imgUrl +` width="auto" height="auto"/>
+								</p>	
+							</div>	
+								
+							<div class="cardInfo">
+								<div class="cardName">
+									<p class="name">`+ card.cardName + `</p>
+									<p class="bankName">` + card.companyName +`</p>
+									<div class="cardLink" data-url=` + card.cUrl + `>카드사 바로가기</div>
+								</div>
+								
+								<!-- 혜택 정보 출력 -->
+								<div class="cardBenefit">
+									<div class="benefitDetail">`+
+										cardDetails
+									+`</div>
+								</div>
+								<div class="cardAnnual">
+									<p>`+ card.annualFee +`</p>
+								</div>							
+							</div>
+		 				</div>
+	 				</div>
+	 				`;
+         
+                });
 
-#beforeLogin-BG-cardImg img {
-    max-width: 100%;
-    max-height: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-}
+                // 카드 리스트 HTML을 DOM에 삽입
+                $("#cardList").html(cardHtml);
 
-#comment-beforeLogin, #comment-afterLogin {
-	text-align: center;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	box-sizing: border-box;
-	margin: 10px 0px;
-}
+                // 탭 스타일 변경 (선택된 탭 강조)
+                if (cardType === "신용") {
+                    $("#sinCard").css("background-color", "#d8ffed");
+                    $("#checkCard").css("background-color", "white");
+                } else {
+                    $("#checkCard").css("background-color", "#d8ffed");
+                    $("#sinCard").css("background-color", "white");
+                }
+            },
+            error: function(err) {
+                console.log("Error fetching cards:", err);
+            }
+        });
+    }
+    
+    // 동적으로 추가된 .cardLink에 클릭 이벤트를 적용하기 위해 이벤트 위임 사용
+    $("#cardList").on("click", ".cardLink", function() {
+    	var url = $(this).data('url');
+    	window.location.href = url;
+    });
+    
+ 	// 카테고리 박스 클릭 이벤트 처리
+    $(".categoryBox").click(function() {
+    	// 모든 카테고리 박스의 배경색을 초기화 (원래 색상으로 되돌림)
+        $(".categoryBox").css("background-color", "white");
 
-#comment-beforeLogin #comment-lg, #comment-afterLogin #comment-lg {
-	font-size: 30px;
-}
-
-#comment-beforeLogin #comment-md, #comment-afterLogin #comment-md {
-	font-family: "LINESeedKR-Rg";
-	font-size: 20px;
-	color: gray;
-}
-
-#fakeBtn button, #recommentBtn button, #beforeLogin-FN-LoginBtn button {
-	border: 1px solid lightgray;
-	border-radius: 10px;
-	background-color: #FCEAAB;
-	padding: 10px 20px;
-}
-
-#beforeLogin-FN {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	background-color: rgba(43, 43, 43, 0.726);
-	position: absolute; /* 절대 위치 설정 */
-	z-index: 2;
-	top: 0; /* BG 요소의 가장 위에 위치하도록 설정 */
-	left: 0; /* BG 요소의 왼쪽에 맞춤 */
-	width: 100%; /* BG 요소의 너비에 맞춤 */
-	height: 100%;
-	box-sizing: border-box;
-	justify-content: space-evenly;
-	border-radius: 10px;
-	box-shadow: 0px 2px 60px 10px lightgray;
-}
-
-#comment-beforeLogin2 {
-	color: aliceblue;
-	text-align: center;
-}
-
-#beforeLogin-FN-Icon img {
-	width: 100px;
-	height: 100px;
-}
-
-#afterLogin {
-	width: 100%;
-	height: 100%;
-	box-sizing: border-box;
-	background-color: rgba(163, 255, 214, 0.2);
-	display: flex;
-	flex-direction: row;
-	border-radius: 10px;
-	box-shadow: 0px 2px 60px 10px lightgray;
-/* 	padding: 10px 150px; */
-	justify-content: space-evenly;
-	align-items: center;
-}
-
-#afterLogin-cardImg {
-	width: 110px;
-    height: 110px;
-    position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #E9ECEF;
-	border-radius: 100%;
-}
-
-
-#afterLogin-cardImg img {
-    max-width: 100%;
-    max-height: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-}
-</style>
+        // 클릭된 카테고리 박스의 배경색 변경
+        $(this).css("background-color", "#d8ffed");
+    	
+    	// 현재 선택된 탭 확인
+        let cardType = $("#sinCard").css("background-color") === "rgb(216, 255, 237)" ? "신용" : "체크"; // lightblue일 경우
+        
+        var categoryName = $(this).find(".categoryInfo").text(); // 클릭한 카테고리의 이름을 가져옴
+        alert("선택한 카테고리: " + categoryName); // 선택한 카테고리 이름 확인
+        // AJAX 요청으로 카테고리 데이터 가져오기
+        $.ajax({
+            url: "cardSearch2.do",  // 서버측 서블릿 URL (카테고리 데이터 요청)
+            type: "GET",
+            data: {
+            	cardType: cardType,
+            	category: categoryName
+           	},  // 카테고리 이름 전송
+            dataType: "json",
+            
+            success: function(data) {
+                let cardHtml = '';
+                
+                let cards = data.cards;
+                let details = data.splitDetails;
+                /* console.log(cards); */
+                
+                cards.forEach(card => {
+                	var cardDetails = '';
+                	
+                	cardNo = card.cardNo;
+                	
+                	//카드 디테일 반복...
+                	details[cardNo].forEach(detail => {
+                		cardDetails += `<div>` + detail + `</div>`;
+                	});
+                	//카드 디테일 반복 끝...
+                	
+                	console.log(cardDetails);
+                	
+                	cardHtml += `
+                		<div class = "cards">
+	                	<div class ="card">						
+							<div class="card_img">
+								<p class="img">
+									<img src=`+ card.imgUrl +` width="auto" height="auto"/>
+								</p>	
+							</div>
+							
+							<div class="cardInfo">
+								<div class="cardName">
+									<p class="name">`+ card.cardName + `</p>
+									<p class="bankName">` + card.companyName +`</p>
+									<div class="cardLink" data-url=` + card.cUrl + `>카드사 바로가기</div>
+								</div>
+								
+								<!-- 혜택 정보 출력 -->
+								<div class="cardBenefit">
+									<div class="benefitDetail">`+
+										cardDetails
+									+`</div>
+								</div>
+								<div class="cardAnnual">
+									<p>`+ card.annualFee +`</p>
+								</div>							
+							</div>
+		 				</div>
+	 				</div>
+                    `;
+                });
+                $("#cardList").html(cardHtml);
+            },
+            error: function(err) {
+                console.log("Error fetching category cards:", err);
+            }
+        }); //ajax 끝
+    }); // 카테고리 박스 클릭 이벤트 처리 끝
+ 
+});
+</script>
 </head>
 <body>
 	<jsp:include page="header.html" />
@@ -269,9 +264,52 @@
 				</c:if>
 			</div>
 
-			<!-- 도현 작성 -->
-			<div id="cardSearchContainer"></div>
-
+			<<!-- 도현님 작성 -->
+			<div id="cardSearchContainer">
+				<div id="cardTypeChoice">
+					<div class="cardTypeCheck" id="sinCard">신용카드</div>
+					<div class="cardTypeCheck" id="checkCard">체크카드</div>
+				</div>
+				<div id="cardListContainer">
+					<div id="categoryContainer">
+						<div class="categoryBox">
+							<img src="image/category/cafe.png" class="categoryIcon"/>
+							<p class="categoryInfo">카페</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/mobile.png" class="categoryIcon"/>
+							<p class="categoryInfo">모바일</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/transport.svg" class="categoryIcon"/>
+							<p class="categoryInfo">교통</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/culture.png" class="categoryIcon"/>
+							<p class="categoryInfo">문화</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/shopping.png" class="categoryIcon"/>
+							<p class="categoryInfo">쇼핑</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/travel.svg" class="categoryIcon"/>
+							<p class="categoryInfo">여행</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/digital-content.png" class="categoryIcon"/>
+							<p class="categoryInfo">OTT</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/cvs.png" class="categoryIcon"/>
+							<p class="categoryInfo">편의점</p>
+						</div>
+					</div>
+					<div id="cardList">
+						
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

@@ -40,7 +40,4 @@ public class ModelAndView {
 	public void setRedirect(boolean isRedirect) {
 		this.isRedirect = isRedirect;
 	}
-	
-	
-
 }

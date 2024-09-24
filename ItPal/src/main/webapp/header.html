@@ -1,63 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style>
+<!--	body{
+		background-color: white;
+	}-->
+	#header {
+		display: flex;
+		align-items: center;
+		padding: 0 15%;
+	}
 	
-	<style>
-		#header {
-        display: flex;
-        align-items: center;
-        padding: 0 15%;
-      }
-      #header * {
-        color: #111;
-      }
-      #header > * {
-        flex-grow: 1;
- 		font-family: "LINESeedKR-Bd";
-      }
-      #header > span {
-        text-align: center;
-      }
-      #home img {
-        object-fit: contain;
-        width: 80px;
-      }
-      #login img {
-        object-fit: contain;
-        width: 32px;
-      }
-      #nav > ul {
-        display: flex;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      #nav > ul > li {
-        flex-grow: 1;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-      }
-	</style>
+	#header * {
+		color: #111;
+	}
+	
+	#header>* {
+		flex-grow: 1;
+		font-family: "LINESeedKR-Bd";
+	}
+	
+	#header>span {
+		text-align: center;
+	}
+	
+	#home img {
+		object-fit: contain;
+		width: 80px;
+	}
+	
+	#login img {
+		object-fit: contain;
+		width: 32px;
+	}
+	
+	#nav>ul {
+		display: flex;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	
+	#nav>ul>li {
+		flex-grow: 1;
+		margin: 0;
+		padding: 0;
+		text-align: center;
+	}
+</style>
 </head>
 
 <body>
-    <div id="header">
-      <span id="home"
-        ><a href="index.html"><img src="./img/logo_itpal.png" alt="" /></a
-      ></span>
-      <div id="nav">
-        <ul>
-          <li><a href="myPage.do">개인 자산 관리</a></li>
-          <li><a href="depositList.do">예적금 검색</a></li>
-          <li><a href="cardList.do">카드 검색</a></li>
-        </ul>
-      </div>
-      <span id="login"
-        ><a href="login.jsp"><img src="./img/icon_login_V2.png" alt="" /></a
-      ></span>
-    </div>
+	<div id="header">
+		<span id="home"><a href="index.html"><img
+				src="./img/logo_itpal.png" alt="" /></a></span>
+		<div id="nav">
+			<ul>
+				<li><a href="myPage.do">개인 자산 관리</a></li>
+				<li><a href="depositList.do">예적금 검색</a></li>
+				<li><a href="cardList.do">카드 검색</a></li>
+			</ul>
+		</div>
+		<span id="login"><a href="login.jsp"><img
+				src="./img/icon_login_V2.png" alt="" /></a></span>
+	</div>
 </body>
 </html>

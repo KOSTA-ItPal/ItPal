@@ -6,12 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import java.util.Map;
+import java.util.Scanner;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
-import config.ServerInfo;
 import model.vo.Card;
 import model.vo.User;
 
@@ -46,14 +45,14 @@ public class CardDAOImpl implements CardDAO {
 //      }
 //      return conn;
 //  }	
-  
+ 
 	private DataSource ds;
 	
 	// 싱글톤
 	private static CardDAOImpl dao = new CardDAOImpl();
 
-	  private CardDAOImpl() {
-		try {
+	private CardDAOImpl() {
+	  try {
 			InitialContext ic = new InitialContext();
 			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
 			System.out.println("DataSource lookup...Success~~!!");
@@ -68,7 +67,7 @@ public class CardDAOImpl implements CardDAO {
 
     @Override
     public Connection getConnect() throws SQLException {
-		System.out.println("디비 연결 성공...");
+    	System.out.println("디비 연결 성공...");
 		return ds.getConnection();
     }
 
@@ -158,8 +157,8 @@ public class CardDAOImpl implements CardDAO {
 
 	@Override
 	public ArrayList<Card> showAllCards(String cardType) throws SQLException {
-		ArrayList<Card> list = new ArrayList<>();
-		String query = "select card_no, card_name, img_url, c_url, company_name, card_detail, annual_fee, card_type, view from card where card_type=? order by card_no desc";
+		ArrayList<Card> list = new ArrayList();
+		String query = "select card_no, card_name, img_url, c_url, company_name, card_detail, annual_fee, card_type, view from card where card_type=? order by card_no";
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -221,8 +220,11 @@ public class CardDAOImpl implements CardDAO {
 		return list2;
 	} //searchByCategory
 
+	
+	
+	
 	//추가 : 유저가 가장 많이 소비한 카테고리를 3개 찾는 메소드
-	private ArrayList<String> searchCategory(User user) throws SQLException{
+	public ArrayList<String> searchCategory(User user) throws SQLException{
 		//1. 유저 아이디를 찾음
 		String userId = user.getUserId();
 		
@@ -260,37 +262,8 @@ public class CardDAOImpl implements CardDAO {
 		return listCat;
 	} //searchCategory
 	
-
-	
-	@Override
-	public ArrayList<ArrayList<Card>> searchByCategory(User user) throws SQLException {
-		//1. 유저 아이디를 찾음
-		//2. 해당 유저가 가장 많이 소비한 카테고리를 3개 찾음 (가장 많은 액수를 소비한 카테고리?)
-		ArrayList<String> listCat = searchCategory(user); //카테고리를 받아온 리스트
-		
-		//3. 해당 카테고리의 혜택을 가진 카드 일련번호를 찾고, 상위 3개 카드 일련번호를 뽑음
-		//4. 해당 카드의 정보를 받아옴
-		ArrayList<ArrayList<Card>> listRecommAll = new ArrayList<>(); //모든 카테고리 카드 리스트
-		
-		try {
-			for (String category : listCat) {
-				listRecommAll.add(searchCardsByCategory(category));
-			} //for
-			if (listRecommAll.isEmpty()) {
-				System.err.println("[Error] : 카드 리스트가 비어 있음");
-			} //if
-			
-			System.out.println("searchByCategory() 실행 성공");
-		} finally {
-			System.out.println("searchByCategory() 실행 완료");
-		} //try-finally
-
-		return listRecommAll;
-	} //searchByCategory
-	
-	
 	//추가 : 카테고리별 카드 목록을 받아오는 메소드
-	private ArrayList<Card> searchCardsByCategory(String category) throws SQLException {
+	public ArrayList<Card> searchCardsByCategory(String category) throws SQLException {
 		ArrayList<Card> listRecomm = new ArrayList<>(); //카테고리별 카드 리스트
 		
 		StringBuffer buffer = new StringBuffer();

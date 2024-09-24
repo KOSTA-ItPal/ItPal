@@ -20,7 +20,8 @@ public class HandlerMapping {
 		else if(command.equals("myPage.do")) controller = new MyPageController();		
 		else if(command.equals("setBudget.do")) controller = new SetBudgetController();		
 		else if(command.equals("setSave.do")) controller = new SetSaveController();		
-		else if(command.equals("cardList.do")) controller = new CardListController();	
+//		else if(command.equals("cardList.do")) controller = new CardListController();
+		else if(command.equals("idcheck.do")) controller = new IdDuplicateCheckController(); //아직 미정,..
 		else if(command.equals("cardSearch.do")) controller = new CardSearchController();
 		else if(command.equals("cardSearch2.do")) controller = new CardSearch2Controller();
 		else if(command.equals("cardRecommend.do")) controller = new CardRecommendController();
@@ -30,12 +31,3 @@ public class HandlerMapping {
 		return controller;
 	}
 }
-
-
-
-
-
-
-
-
-

@@ -52,6 +52,4 @@ public interface ManagementDAO {
 	
 	//4개월 치 전원 데이터 
 	HashMap<Long, Long> showSpendStatusList(User user)throws SQLException;
-	
-	
 }

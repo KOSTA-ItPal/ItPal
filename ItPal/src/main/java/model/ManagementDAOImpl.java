@@ -14,7 +14,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import config.ServerInfo;
 import model.vo.Account;
 import model.vo.User;
 
