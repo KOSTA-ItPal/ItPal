@@ -40,7 +40,8 @@ public interface ManagementDAO {
 	void setSaving(User user, long save) throws SQLException;
 	long getSaving(User user) throws SQLException;
 	//목표 달성 비율
-	double getAchievementRate(User user) throws SQLException;
+	//type 변경
+	int getAchievementRate(User user) throws SQLException;
 	
 /*MGMT 4*/
 	//소비패턴 한눈에 보기 :  소비 횟수 순(혜린언니)

@@ -255,19 +255,21 @@ public class ManagementDAOImpl implements ManagementDAO{
 	}
 
 	//목표 달성 비율 -> front 단에서 하기!!!!!!!!
+	//변경함(hj.lee) else 구문 logic이 맞지 않아 변경
 	@Override
-	public double getAchievementRate(User user) throws SQLException {
+	public int getAchievementRate(User user) throws SQLException {
 		
-		double result = 0.0;
+		int result = 0;
 		long totalAsset = getTotalAsset(user);
 		long saving = getSaving(user);
 		
 		if( totalAsset >= saving) result = 100;
 		else {
-			if(saving > 0)
-			result = Math.round(saving / totalAsset) *100;
+	        if (saving > 0) {
+	            // 나누기 연산에서 double로 변환되도록 수정 후 반올림 그 후 int casting
+	            result = (int) Math.round((double) totalAsset / saving * 100);
+	        }
 		}
-		
 		return result;
 	}
 
