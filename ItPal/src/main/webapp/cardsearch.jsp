@@ -5,12 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="cardsearch.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="cardsearch.css"><!-- CSS 파일 링크 -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<title>Insert title here</title>
+
+<title>잇플(ItPal):: 카드페이지</title>
+
 <script>
 $(() => {
     // 페이지 로드 시 기본적으로 신용카드 탭을 보여줍니다
@@ -91,26 +94,7 @@ $(() => {
 		 				</div>
 	 				</div>
 	 				`;
-                	
-                    /* cardHtml += `
-                    	<div class="cardInfoContainer">
-        				<div class="cardImg">
-        					<div><img src=` + card.imgUrl + `></div>
-        				</div>
-        				<div class="cardInfo">
-        					<div class="cardName">
-        						<p class="name">` + card.cardName + `<p class="bankName">` + card.companyName + `</p></p>
-        						<div class="cardLink" data-url=` + card.cUrl + `>카드사 바로가기</div>
-        					</div>
-        					<div class="cardBenefit">`+
-        						cardDetails
-        					+`</div>
-        					<div class="cardAnnual">
-        						<p>`+ card.annualFee +`</p>
-        					</div>
-        				</div>
-       				</div>
-                    `; */
+         
                 });
 
                 // 카드 리스트 HTML을 DOM에 삽입
@@ -222,65 +206,111 @@ $(() => {
 </script>
 </head>
 <body>
-<div class="jumbotron jumbotron-fluid"></div>
-<div class="container">
-	<!-- 혜린님 작성 -->
-	<div id="cardCategoryContainer">
-		<div id="cardNew"></div>
-		<div id="cardHOT"></div>
-	</div>
-	
-	<!-- 희주님 작성 -->
-	<div id="cardRecommand"></div>
-	
-	
-	<!-- 도현님 작성 -->
-	<div id="cardSearchContainer">
-		<div id="cardTypeChoice">
-			<div class="cardTypeCheck" id="sinCard">신용카드</div>
-			<div class="cardTypeCheck" id="checkCard">체크카드</div>
-		</div>
-		<div id="cardListContainer">
-			<div id="categoryContainer">
-				<div class="categoryBox">
-					<img src="image/category/cafe.png" class="categoryIcon"/>
-					<p class="categoryInfo">카페</p>
+	<jsp:include page="header.html" />
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<!-- 승현이 작성 -->
+			<div id="cardCategoryContainer">
+				<div id="cardNew"></div>
+				<div id="cardHOT"></div>
+			</div>
+			<div id="cardRecommand">
+				<!-- id가 null일 때 -->
+				<c:if test="${user==null}">
+					<div id="beforeLogin-BG">
+						<div id="beforeLogin-BG-cardImg">
+							<img
+								src="https://d1c5n4ri2guedi.cloudfront.net/card/2422/card_img/27141/2422card.png">
+						</div>
+						<div id="comment-beforeLogin">
+							<div id="comment-lg">나에게 찰떡궁합 카드는?</div>
+							<div id="comment-md">나의 소비패턴에 가장 적합한 카드를 추천해드려요</div>
+							<div id="fakeBtn">
+								<button>나에게 딱맞는 카드 보러가기</button>
+							</div>
+						</div>
+						<div id="beforeLogin-FN">
+							<div id="beforeLogin-FN-Icon">
+								<img src="img/characters/Security.png">
+							</div>
+							<div id="comment-beforeLogin2">
+								<h3>로그인 후 이용 가능합니다</h3>
+								<div id="beforeLogin-FN-LoginBtn">
+									<button id="cardLoginBtn" onclick="location.href='login.jsp'">로그인 하러가기</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
+				<!-- id가 null일 때 -->
+				<c:if test="${user!=null}">
+					<div id="afterLogin">
+						<div id="afterLogin-cardImg">
+							<img
+								src="https://d1c5n4ri2guedi.cloudfront.net/card/2422/card_img/27141/2422card.png">
+						</div>
+						<div id="comment-afterLogin">
+							<!-- @@에는 vo.name 을 넣어야 함 -->
+							<div id="comment-lg">${user.userName}님에게 찰떡궁합인 카드는?</div>
+							<div id="comment-md">소비패턴을 분석해 가장 적합한 카드를 추천해드려요</div>
+							<div id="recommentBtn">
+								<form action="cardRecommend.do">
+									<button id="cardRecommendBtn"
+										onclick="location.href='cardrecommend.jsp'">나에게 딱맞는 카드 보러가기</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</c:if>
+			</div>
+
+			<<!-- 도현님 작성 -->
+			<div id="cardSearchContainer">
+				<div id="cardTypeChoice">
+					<div class="cardTypeCheck" id="sinCard">신용카드</div>
+					<div class="cardTypeCheck" id="checkCard">체크카드</div>
 				</div>
-				<div class="categoryBox">
-					<img src="image/category/mobile.png" class="categoryIcon"/>
-					<p class="categoryInfo">모바일</p>
-				</div>
-				<div class="categoryBox">
-					<img src="image/category/transport.svg" class="categoryIcon"/>
-					<p class="categoryInfo">교통</p>
-				</div>
-				<div class="categoryBox">
-					<img src="image/category/culture.png" class="categoryIcon"/>
-					<p class="categoryInfo">문화</p>
-				</div>
-				<div class="categoryBox">
-					<img src="image/category/shopping.png" class="categoryIcon"/>
-					<p class="categoryInfo">쇼핑</p>
-				</div>
-				<div class="categoryBox">
-					<img src="image/category/travel.svg" class="categoryIcon"/>
-					<p class="categoryInfo">여행</p>
-				</div>
-				<div class="categoryBox">
-					<img src="image/category/digital-content.png" class="categoryIcon"/>
-					<p class="categoryInfo">OTT</p>
-				</div>
-				<div class="categoryBox">
-					<img src="image/category/cvs.png" class="categoryIcon"/>
-					<p class="categoryInfo">편의점</p>
+				<div id="cardListContainer">
+					<div id="categoryContainer">
+						<div class="categoryBox">
+							<img src="image/category/cafe.png" class="categoryIcon"/>
+							<p class="categoryInfo">카페</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/mobile.png" class="categoryIcon"/>
+							<p class="categoryInfo">모바일</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/transport.svg" class="categoryIcon"/>
+							<p class="categoryInfo">교통</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/culture.png" class="categoryIcon"/>
+							<p class="categoryInfo">문화</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/shopping.png" class="categoryIcon"/>
+							<p class="categoryInfo">쇼핑</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/travel.svg" class="categoryIcon"/>
+							<p class="categoryInfo">여행</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/digital-content.png" class="categoryIcon"/>
+							<p class="categoryInfo">OTT</p>
+						</div>
+						<div class="categoryBox">
+							<img src="image/category/cvs.png" class="categoryIcon"/>
+							<p class="categoryInfo">편의점</p>
+						</div>
+					</div>
+					<div id="cardList">
+						
+					</div>
 				</div>
 			</div>
-			<div id="cardList">
-				
-			</div>
 		</div>
 	</div>
-	
-</div>
 </body>
 </html>

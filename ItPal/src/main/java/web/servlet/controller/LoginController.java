@@ -27,7 +27,7 @@ public class LoginController implements Controller {
 			session.setAttribute("user", user);
 			
 			if (user != null) 
-				path="index.html";
+				path="myPage.do";
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

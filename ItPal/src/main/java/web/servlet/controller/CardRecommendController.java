@@ -2,13 +2,11 @@ package web.servlet.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.CardDAOImpl;
-import model.UserDAOImpl;
 import model.vo.Card;
 import model.vo.User;
 

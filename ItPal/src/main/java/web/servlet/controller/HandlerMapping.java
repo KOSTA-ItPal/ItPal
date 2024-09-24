@@ -18,8 +18,8 @@ public class HandlerMapping {
 		if(command.equals("register.do")) controller = new RegisterController();	
 		else if(command.equals("login.do")) controller = new LoginController();		
 		else if(command.equals("myPage.do")) controller = new MyPageController();		
-//		else if(command.equals("setBudget.do")) controller = new SetBudgetController();		
-//		else if(command.equals("setSave.do")) controller = new SetSaveController();		
+		else if(command.equals("setBudget.do")) controller = new SetBudgetController();		
+		else if(command.equals("setSave.do")) controller = new SetSaveController();		
 //		else if(command.equals("cardList.do")) controller = new CardListController();
 		else if(command.equals("idcheck.do")) controller = new IdDuplicateCheckController(); //아직 미정,..
 		else if(command.equals("cardSearch.do")) controller = new CardSearchController();
