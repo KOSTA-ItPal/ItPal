@@ -54,7 +54,7 @@ public class MyPageController implements Controller {
 				request.setAttribute("fixedAccounts", fixedAccounts);
 				request.setAttribute("installmentAccounts", installmentAccounts);
 				
-				path = "myPage.jsp";
+				path = "mypage.jsp";
 			}
 			else {
 				isRedirect = true;

@@ -19,7 +19,7 @@ public class DispatcherServlet extends HttpServlet {
 		doProcess(request,response);
 	}
 
-	protected void doProcess(HttpServletRequest request, HttpServletResponse response){
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response) {
 		String requestURI=request.getRequestURI(); 
 		System.out.println("requestURI :  "+requestURI);
 		
@@ -51,4 +51,3 @@ public class DispatcherServlet extends HttpServlet {
 		}		
 	}
 }
-
