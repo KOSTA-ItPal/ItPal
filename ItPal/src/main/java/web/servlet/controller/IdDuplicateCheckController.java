@@ -3,8 +3,7 @@ package web.servlet.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.model.UserDAOImpl;
-import main.java.model.vo.User;
+import model.UserDAOImpl;
 
 public class IdDuplicateCheckController implements Controller {
 

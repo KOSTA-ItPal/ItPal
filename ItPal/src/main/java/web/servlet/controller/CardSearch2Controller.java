@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import main.java.model.CardDAOImpl;
-import main.java.model.vo.Card;
+import model.CardDAOImpl;
+import model.vo.Card;
 
 public class CardSearch2Controller implements Controller {
 	
