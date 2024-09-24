@@ -15,6 +15,7 @@ public interface UserDAO {
 	void closeAll(ResultSet rs,PreparedStatement ps, Connection conn)throws SQLException;
 	
 	void register(User user) throws SQLException;
+	public String findUserId(String userId) throws SQLException;
 	String findUserId(String userName, String phoneNum ) throws SQLException;
 	String findUserPwd(String userId, String userName, String phoneNum ) throws SQLException;
 	User login(String userId, String userPwd) throws SQLException;

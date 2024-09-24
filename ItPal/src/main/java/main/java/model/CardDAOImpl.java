@@ -8,47 +8,39 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import main.java.model.vo.Card;
 import main.java.model.vo.User;
 
 public class CardDAOImpl implements CardDAO {
-	static String driver = "com.mysql.cj.jdbc.Driver";
-	static String url = "jdbc:mysql://127.0.0.1:3306/itpal?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8";
-	static String user = "root";
-	static String pass = "1234";
+	
+	private DataSource ds;
 	
 	// 싱글톤
 	private static CardDAOImpl dao = new CardDAOImpl();
 
-	  private CardDAOImpl() {
-	        // 드라이버 로딩 -- 후에 데이터 소스로 변경 예정
-	        try {
-	            Class.forName(driver);
-	            System.out.println("Driver Loading 성공");
-	        } catch (ClassNotFoundException e) {
-	            System.out.println("드라이버 로딩 실패: " + e.getMessage());
-	        }
-	    }
+	private CardDAOImpl() {
+	  try {
+			InitialContext ic = new InitialContext();
+			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
+			System.out.println("DataSource lookup...Success~~!!");
+		}catch(NamingException e) {
+			System.out.println("DataSource lookup...Fail~~!!");
+		}
+	}
 	
 	public static CardDAOImpl getInstance() {
 		return dao;
 	}
 
     @Override
-    public Connection getConnect() {
-        Connection conn = null;
-        try {
-            // DB 연결 시도
-            conn = DriverManager.getConnection(url, user, pass);
-            if (conn != null) {
-                System.out.println("DB 연결 성공");
-            } else {
-                System.out.println("DB 연결 실패");
-            }
-        } catch (SQLException e) {
-            System.out.println("DB 연결 중 오류 발생: " + e.getMessage());
-        }
-        return conn;
+    public Connection getConnect() throws SQLException {
+    	System.out.println("디비 연결 성공...");
+		return ds.getConnection();
     }
 
 
@@ -138,7 +130,7 @@ public class CardDAOImpl implements CardDAO {
 	@Override
 	public ArrayList<Card> showAllCards(String cardType) throws SQLException {
 		ArrayList<Card> list = new ArrayList();
-		String query = "select card_no, card_name, img_url, c_url, company_name, card_detail, annual_fee, card_type, view from card where card_type=? order by card_no desc";
+		String query = "select card_no, card_name, img_url, c_url, company_name, card_detail, annual_fee, card_type, view from card where card_type=? order by card_no";
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
