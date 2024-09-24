@@ -165,10 +165,10 @@ public class Test {
 		//소비패턴 한눈에 보기 (높은 비중으로 정렬)
 
 		System.out.println("MGMT4. 소비패턴 한눈에 보기");
-		HashMap<String, Long> hashMap = daoMGMT.getPaymentPatternCnt(mgmtUser);
+		HashMap<String, Long> hashMap = daoMGMT.getPaymentPatternCnt(user);
 
 		System.out.println("MGMT4. 소비패턴 한눈에 보기 : 소비 횟수 순(혜린언니)");
-		HashMap<String, Long> hashMap = daoMGMT.getPaymentPatternCnt(user);
+		HashMap<String, Long> keyset = daoMGMT.getPaymentPatternCnt(user);
 
 		
 		ArrayList<String> keySet = new ArrayList<>(hashMap.keySet());

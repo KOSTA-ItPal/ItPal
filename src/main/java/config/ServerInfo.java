@@ -1,4 +1,4 @@
-package main.java.model.util;
+package config;
 
 public interface ServerInfo {
 	String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";

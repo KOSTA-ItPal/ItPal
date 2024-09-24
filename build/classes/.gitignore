@@ -1,2 +1,7 @@
-/controller/
+/config/
+/filter/
+/main/
+/model/
+/sql/
+/test/
 /web/

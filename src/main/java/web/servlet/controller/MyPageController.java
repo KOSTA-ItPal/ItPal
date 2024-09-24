@@ -1,6 +1,5 @@
 package web.servlet.controller;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -84,7 +83,8 @@ public class MyPageController implements Controller {
 			
 			 request.setAttribute("Cntpattern", Cntpattern);
 			 request.setAttribute("Sumpattern", Sumpattern);
-		} catch (SQLException e) {
+			 request.setAttribute("status", status);
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 		
