@@ -1,5 +1,6 @@
 package web.servlet.controller;
 
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -26,6 +27,5 @@ public class CardListController implements Controller{
 			System.out.println(e);
 		}
 		return  new ModelAndView(path);
-	}
 
 }

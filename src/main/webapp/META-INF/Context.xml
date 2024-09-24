@@ -5,11 +5,11 @@
 	    auth="Container"
 	    type="javax.sql.DataSource"
 	    username = "root"
-	    password="1234"
+	    password="erttfg132!"
 	    driverClassName="com.mysql.cj.jdbc.Driver"
 	    factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
         url="jdbc:mysql://localhost:3306/itpal?serverTimezone=Asia/Seoul"
-        maxActive="500"
+        maxTotal="500"
         maxIdle="30"
 	/>
 </Context>

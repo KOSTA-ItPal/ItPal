@@ -39,18 +39,17 @@ public interface ManagementDAO {
 	//목표액 설정
 	void setSaving(User user, long save) throws SQLException;
 	long getSaving(User user) throws SQLException;
-	//목표 달성 비율
+	//목표 달성 비율(type 변경)
 	int getAchievementRate(User user) throws SQLException;
 	
 /*MGMT 4*/
-	//소비패턴 한눈에 보기 (높은 비중으로 정렬)
+	//소비패턴 한눈에 보기 :  소비 횟수 순(혜린언니)
 	HashMap<String, Long> getPaymentPatternCnt(User user) throws SQLException;
-	HashMap<String, Long> getPaymentPatternSum(User user) throws SQLException;
 	
+	//소비패턴 한눈에 보기 : 소비 금액 순(지남언니)
+	HashMap<String, Long> getPaymentPatternSum(User user) throws SQLException;
+
 	
 	//4개월 치 전원 데이터 
 	HashMap<Long, Long> showSpendStatusList(User user)throws SQLException;
-	ArrayList<Long> showSpendStatusSum(User user) throws SQLException;
-	
-	
 }

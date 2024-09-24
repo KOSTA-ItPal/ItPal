@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="indexCard.css">
+<link rel="stylesheet" href="indexMain.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<title>Insert title here</title>
+<style>
+	#header2 {
+		display: flex;
+		align-items: center;
+		padding: 0 15%;
+	}
+	
+	#header2 * {
+		color: #7e98b5;
+	}
+	
+	#header2>* {
+		flex-grow: 1;
+		font-family: "LINESeedKR-Bd";
+	}
+	
+	#header2>span {
+		text-align: center;
+	}
+	
+	#home img {
+		object-fit: contain;
+		width: 80px;
+	}
+	
+	#login img {
+		object-fit: contain;
+		width: 32px;
+	}
+	
+	#nav>ul {
+		display: flex;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	
+	#nav>ul>li {
+		flex-grow: 1;
+		margin: 0;
+		padding: 0;
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+	<div class="section first">
+		<div class="main">
+			<div id="header2">
+				<span id="home"><a href="index.html"><img src="./img/logo_itpal.png" alt="" /></a></span>
+		<div id="nav">
+			<ul>
+				<li><a href="myPage.do">개인 자산 관리</a></li>
+				<li><a href="depositList.do">예적금 검색</a></li>
+				<li><a href="cardList.do">카드 검색</a></li>
+			</ul>
+		</div>
+		
+		<span id="login"><a href="login.jsp"><img src="./img/icon_login_V2.png" alt="" /></a></span>
+			</div>
+			<div class="header">
+			    <div class="mid-spot" onclick="document.querySelector('.main').classList.toggle('gold');"></div>
+			  	<div class="spotlight">
+				    <div></div>
+				    <div></div>
+				    <div></div>
+			  	</div>
+			</div>
+			<canvas id="particleCanvas"></canvas>
+			<div class="hero">
+			  	<div class="heroT">
+			    <h2>Itpal</h2>
+			    <h2>Itpal</h2>
+			  	</div>
+			</div>
+			<p class="heroP">잇플, 당신의 목표에 함께하다.</p>
+		</div>
+	</div>
+	    	
+	<div class="section second">
+        <div id="secondImgContainer"></div>
+        <div id="secondInfoContainer">
+            <p id="secondTitle">함께라서 모으기 더 쉽다.</p>
+            <p id="secondSub">여러분이 원하는 목표 달성을 위해 <br> 잇플이 개인 자산 관리를 보다 쉽게 도와드립니다.</p>
+            <button id="secondBtn" onclick="test('myPage.do')">잇플과 함께 금융 자산 관리하러 가기</button>
+        </div>
+	</div>
+	    
+	<div class="section third">
+		<div id="thirdInfoContainer">
+            <p id="thirdTitle">실패만 한 당신,<br>
+				이제는 목표 달성에 한걸음</p>
+            <button id="thirdBtn" onclick="test('depositList.do')">잇플이 소개하는 예/적금 확인하러 가기</button>
+        </div>
+	    <div id="thirdImgContainer"></div>
+	</div>
+	    
+	<div class="section fourth">
+	    <div class="card-main">
+			<div id="card-main">
+			    <div class="card">
+			    	<h1 id="what">?</h1>
+			    </div>
+			    <div id="card-mg">
+				    <h4 id="fourthTitle">카드에는 유행이 없다.<br><br>
+				        카드에는 오직 혜택만이 존재한다.</h4>
+				    <button id="fourthBtm" onclick="test('cardList.do')">나에게 딱 맞는 카드 보러가기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+
+function test(pageName) {
+	window.location.href = pageName;
+}
+
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+
+// Initial canvas size
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+let particleCount = calculateParticleCount();
+
+class Particle {
+    constructor() {
+        this.reset();
+        this.y = Math.random() * canvas.height;
+        this.fadeDelay = Math.random() * 600 + 100;
+        this.fadeStart = Date.now() + this.fadeDelay;
+        this.fadingOut = false;
+    }
+
+    reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.speed = Math.random() / 5 + 0.1;
+        this.opacity = 1;
+        this.fadeDelay = Math.random() * 600 + 100;
+        this.fadeStart = Date.now() + this.fadeDelay;
+        this.fadingOut = false;
+    }
+
+    update() {
+        this.y -= this.speed;
+        if (this.y < 0) {
+            this.reset();
+        }
+
+        if (!this.fadingOut && Date.now() > this.fadeStart) {
+            this.fadingOut = true;
+        }
+        
+        if (this.fadingOut) {
+            this.opacity -= 0.008;
+            if (this.opacity <= 0) {
+                this.reset();
+            }
+        }
+    }
+
+    draw() {
+        ctx.fillStyle = `rgba(${255 - (Math.random() * 255/2)}, 255, 255, ${this.opacity})`;
+        ctx.fillRect(this.x, this.y, 0.4, Math.random() * 2 + 1);
+    }
+}
+
+function initParticles() {
+    particles = [];
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+    });
+    requestAnimationFrame(animate);
+}
+
+function calculateParticleCount() {
+    return Math.floor((canvas.width * canvas.height) / 6000);
+}
+
+function onResize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    particleCount = calculateParticleCount();
+    initParticles();
+}
+
+window.addEventListener('resize', onResize);
+
+initParticles();
+animate(); 
+</script>
+</html>

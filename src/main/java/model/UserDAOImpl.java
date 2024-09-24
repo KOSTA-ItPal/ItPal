@@ -12,7 +12,36 @@ import javax.sql.DataSource;
 
 import model.vo.User;
 
-public class UserDAOImpl implements UserDAO{
+public class UserDAOImpl implements UserDAO {
+//	static String driver = "com.mysql.cj.jdbc.Driver";
+//	static String url = "jdbc:mysql://127.0.0.1:3306/itpal?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8";
+//	static String user = "root";
+//	static String pass = "1234";
+//	
+//	//싱글톤
+//		private static UserDAOImpl dao = new UserDAOImpl();
+//		private UserDAOImpl() {
+//			try {
+//				Class.forName(driver);
+//				System.out.println("1. 드라이버 로딩 성공");
+//			} catch (ClassNotFoundException e) {
+//				System.out.println("1. 드라이버 로딩 실패");
+//			}finally {
+//				System.out.println("1. 드라이버 로딩 완료");
+//			}
+//		}
+//		public static UserDAOImpl getInstance() {
+//			return dao;
+//		}
+//		
+//	/////////////////////////////// 공통 로직 //////////////////////////////////
+//	
+//	@Override
+//	public Connection getConnect() throws SQLException {
+//		Connection conn = DriverManager.getConnection(url, user, pass);
+//		System.out.println("2. DB 연결 성공");
+//		return conn;
+//	}
 
 	private DataSource ds;
 	
@@ -29,7 +58,9 @@ public class UserDAOImpl implements UserDAO{
 				System.out.println("DataSource lookup...Fail~~!!");
 			}
 		}
-
+	
+		
+	/////////////////////////////// 공통 로직 //////////////////////////////////
 	
 	@Override
 	public Connection getConnect() throws SQLException {
@@ -54,11 +85,12 @@ public class UserDAOImpl implements UserDAO{
 	public void register(User user) throws SQLException {
 		StringBuffer query1 = new StringBuffer();
 		query1.append("INSERT INTO user (user_id, user_name, user_pwd, phone_num, email, birthday, budget_set, save_set) ");
-		query1.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?) ");
+		query1.append("VALUES (?, ?, ?, ?, ?, ?, 0, 0) ");
+		
 		String query2 = query1.toString();
 		
 		try (Connection conn = getConnect();
-			 PreparedStatement ps = conn.prepareStatement(query2);) { //자원 반환
+			PreparedStatement ps = conn.prepareStatement(query2);) { //자원 반환
 			
 			ps.setString(1, user.getUserId());
 			ps.setString(2, user.getUserName());
@@ -66,8 +98,6 @@ public class UserDAOImpl implements UserDAO{
 			ps.setString(4, user.getPhoneNum());
 			ps.setString(5, user.getEmail());
 			ps.setString(6, user.getBirthDay());
-			ps.setLong(7, user.getBudgetSet());
-			ps.setLong(8, user.getSaveSet());
 			ps.executeUpdate();
 			
 			System.out.println("register() 실행 성공");
@@ -75,6 +105,37 @@ public class UserDAOImpl implements UserDAO{
 			System.out.println("register() 실행 완료");
 		} //try-finally
 	} //register
+	
+	@Override
+	public String findUserId(String userId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String result = "";
+		String query = "select user_id from user where user_id = ?	";
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(query);
+			
+			ps.setString(1, userId);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) 
+				result = "true"; //중복 값이 있음!	
+			else
+				result = "false"; //중복값이 없음!!
+			
+			System.out.println("findUserId() 실행 성공");
+		} finally {
+			closeAll(rs, ps, conn); //자원 반환
+			System.out.println("findUserId() 실행 완료");
+		} //try-finally
+		
+		
+		return result;
+	}
 
 	@Override
 	public String findUserId(String userName, String phoneNum) throws SQLException {
@@ -148,8 +209,11 @@ public class UserDAOImpl implements UserDAO{
 		ResultSet rs = null;
 		
 		try {
-			conn = getConnect();
+			System.out.println("gg0");
+			conn = getConnect(); //에러 발생
+			System.out.println("gg1");
 			ps = conn.prepareStatement(query);
+			System.out.println("gg2");
 			
 			ps.setString(1, userId);
 			ps.setString(2, userPwd);
@@ -177,7 +241,4 @@ public class UserDAOImpl implements UserDAO{
 
 		return user;
 	} //login
-
-	
-
 }

@@ -16,9 +16,9 @@ public interface DepositDAO {
 	void closeAll(ResultSet rs,PreparedStatement ps, Connection conn)throws SQLException;
 	
 	//예적금 조회
-	ArrayList<Deposit> showAllDeposit(String depositType)throws SQLException;
+	ArrayList<Deposit> showAllDeposit()throws SQLException; //추가
 	
 	//예적금 필터
-	ArrayList<Deposit> searchDeposit(String bankType, String depositPeriod,  String calMethodType)throws SQLException;
+	ArrayList<Deposit> searchDeposit(String depositType, String bankType, String depositPeriod,  String calMethodType)throws SQLException; //추가
 	
 }
