@@ -79,22 +79,25 @@ public class CardRecommendController implements Controller {
 					 
 				}
 			
-				/*
-				 * System.out.println("카드 리스트 별 카드 디테일\n"); for(int i=0; i<cardDetails.size();
-				 * i++) { for(int j =0; j< cardDetails.get(i).size(); j++) { System.out.println(
-				 * i + " " + j + " : " + cardDetails.get(i).get(j) ); }
-				 * System.out.println("=============\n"); }
-				 * System.out.println(cardDetails.size());
-				 */
+			
+				  System.out.println("카드 리스트 별 카드 디테일\n"); 
+				  for(int i=0; i<cardDetails.size(); i++) { 
+					  for(int j =0; j< cardDetails.get(i).size(); j++) 
+						  System.out.println(i + " " + j + " : " + cardDetails.get(i).get(j) ); 
+					  
+					  System.out.println("=============\n"); 
+				  }
+				  
+				  System.out.println(cardDetails.size());
+				
 
 				request.setAttribute("cardListByCategoryMap", cardListByCategoryMap);
 				request.setAttribute("cardDetails", cardDetails);
 				
-				path = "cardRecommend.jsp";
+				path = "cardrecommend.jsp";
 			}
 			else {
-				isRedirect = true;
-				
+				isRedirect = true;				
 			}
 			
 		}catch (Exception e) {
