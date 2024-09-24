@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html>
 <html>
@@ -9,8 +10,9 @@
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="cardsearch.css">
 <script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
@@ -28,28 +30,7 @@
 
 
 <title>Insert title here</title>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#cardNew').slick({
-			slidesToShow : 4,
-			slidesToScroll : 1,
-			autoplay : true,
-			autoplaySpeed : 2000,
-			arrows : true,
-			prevArrow : $('.slick-prev-new'),
-			nextArrow : $('.slick-next-new'),
-		});
-		$('#cardHOT').slick({
-			slidesToShow : 4,
-			slidesToScroll : 1,
-			autoplay : true,
-			autoplaySpeed : 2000,
-			arrows : true,
-			prevArrow : $('.slick-prev-hot'),
-			nextArrow : $('.slick-next-hot'),
-		});
-	});
-</script>
+
 <style>
 .jumbotron {
 	border: 1px solid black;
@@ -72,14 +53,8 @@
 	background-color: lightgray;
 }
 
-#cardCategoryContainer>div {
-	width: 90%;
-	height: 35%;
-}
-
 #cardNew, #cardHOT {
 	background-color: white;
-	padding: 10px;
 	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -107,40 +82,25 @@
 .slick-prev-new {
 	position: absolute;
 	left: 21%;
-	top: 34%; /* 위치 조정 */
+	top: 32%; /* 위치 조정 */
 }
 
 .slick-next-new {
 	position: absolute;
 	right: 20.5%;
-	top: 34%; /* 위치 조정 */
+	top: 32%; /* 위치 조정 */
 }
 
 .slick-prev-hot {
 	position: absolute;
 	left: 21%;
-	top: 62%; /* 위치 조정 */
+	top: 58%; /* 위치 조정 */
 }
 
 .slick-next-hot {
 	position: absolute;
 	right: 20.5%;
-	top: 62%; /* 위치 조정 */
-}
-
-}
-#cardRecommand {
-	width: 100%;
-	height: 200px;
-	background-color: blue;
-	margin-top: 20px;
-}
-
-#cardSearchContainer {
-	width: 100%;
-	height: 500px;
-	background-color: lightgray;
-	margin-top: 200px;
+	top: 58%; /* 위치 조정 */
 }
 </style>
 
@@ -148,6 +108,24 @@
 
 <script>
 $(() => {
+	$('#cardNew').slick({
+		slidesToShow : 4,
+		slidesToScroll : 1,
+		autoplay : true,
+		autoplaySpeed : 2000,
+		arrows : true,
+		prevArrow : $('.slick-prev-new'),
+		nextArrow : $('.slick-next-new'),
+	});
+	$('#cardHOT').slick({
+		slidesToShow : 4,
+		slidesToScroll : 1,
+		autoplay : true,
+		autoplaySpeed : 2000,
+		arrows : true,
+		prevArrow : $('.slick-prev-hot'),
+		nextArrow : $('.slick-next-hot'),
+	});
     // 페이지 로드 시 기본적으로 신용카드 탭을 보여줍니다
     showCardList("신용");
 
@@ -343,29 +321,28 @@ $(() => {
 		<div class="container">
 			<!-- 승현이 작성 -->
 			<div id="cardCategoryContainer">
-				<div id="cardCategoryContainer">
-			<h1 style="align-self: flex-start; margin-left: 5%;">New</h1>
+				<h1 style="align-self: flex-start; margin-left: 5%;">New</h1>
 
-			<div id="cardNew">
-				<c:forEach items="${vo}" var="vo">
-					<img alt="${vo.cardName}" src="${vo.imgUrl}" />
-				</c:forEach>
-			</div>
+				<div id="cardNew">
+					<c:forEach items="${vo}" var="vo">
+						<img alt="${vo.cardName}" src="${vo.imgUrl}" />
+					</c:forEach>
+				</div>
 
-			<img class="slick-arrow slick-prev-new" src="arrow-left.png"> <img
-				class="slick-arrow slick-next-new" src="arrow-right.png">
+				<img class="slick-arrow slick-prev-new" src="arrow-left.png">
+				<img class="slick-arrow slick-next-new" src="arrow-right.png">
 
 
-			<h1 style="align-self: flex-start; margin-left: 5%;">HOT</h1>
+				<h1 style="align-self: flex-start; margin-left: 5%;">HOT</h1>
 
-			<div id="cardHOT">
-				<c:forEach items="${no}" var="vo">
-					<img alt="${vo.cardName}" src="${vo.imgUrl}" />
-				</c:forEach>
-			</div>
-			<img class="slick-arrow slick-prev-hot" src="arrow-left.png"> <img
-				class="slick-arrow slick-next-hot" src="arrow-right.png">
-		</div>
+				<div id="cardHOT">
+					<c:forEach items="${no}" var="vo">
+						<img alt="${vo.cardName}" src="${vo.imgUrl}" />
+					</c:forEach>
+				</div>
+				<img class="slick-arrow slick-prev-hot" src="arrow-left.png">
+				<img class="slick-arrow slick-next-hot" src="arrow-right.png">
+
 			</div>
 			<div id="cardRecommand">
 				<!-- id가 null일 때 -->
@@ -389,7 +366,8 @@ $(() => {
 							<div id="comment-beforeLogin2">
 								<h3>로그인 후 이용 가능합니다</h3>
 								<div id="beforeLogin-FN-LoginBtn">
-									<button id="cardLoginBtn" onclick="location.href='login.jsp'">로그인 하러가기</button>
+									<button id="cardLoginBtn" onclick="location.href='login.jsp'">로그인
+										하러가기</button>
 								</div>
 							</div>
 						</div>
@@ -404,12 +382,13 @@ $(() => {
 						</div>
 						<div id="comment-afterLogin">
 							<!-- @@에는 vo.name 을 넣어야 함 -->
-							<div id="comment-lg">${user.userName}님에게 찰떡궁합인 카드는?</div>
+							<div id="comment-lg">${user.userName}님에게찰떡궁합인카드는?</div>
 							<div id="comment-md">소비패턴을 분석해 가장 적합한 카드를 추천해드려요</div>
 							<div id="recommentBtn">
 								<form action="cardRecommend.do">
 									<button id="cardRecommendBtn"
-										onclick="location.href='cardrecommend.jsp'">나에게 딱맞는 카드 보러가기</button>
+										onclick="location.href='cardrecommend.jsp'">나에게 딱맞는
+										카드 보러가기</button>
 								</form>
 							</div>
 						</div>
@@ -417,7 +396,7 @@ $(() => {
 				</c:if>
 			</div>
 
-			<<!-- 도현님 작성 -->
+			<!-- 도현님 작성 -->
 			<div id="cardSearchContainer">
 				<div id="cardTypeChoice">
 					<div class="cardTypeCheck" id="sinCard">신용카드</div>
@@ -426,41 +405,40 @@ $(() => {
 				<div id="cardListContainer">
 					<div id="categoryContainer">
 						<div class="categoryBox">
-							<img src="image/category/cafe.png" class="categoryIcon"/>
+							<img src="image/category/cafe.png" class="categoryIcon" />
 							<p class="categoryInfo">카페</p>
 						</div>
 						<div class="categoryBox">
-							<img src="image/category/mobile.png" class="categoryIcon"/>
+							<img src="image/category/mobile.png" class="categoryIcon" />
 							<p class="categoryInfo">모바일</p>
 						</div>
 						<div class="categoryBox">
-							<img src="image/category/transport.svg" class="categoryIcon"/>
+							<img src="image/category/transport.svg" class="categoryIcon" />
 							<p class="categoryInfo">교통</p>
 						</div>
 						<div class="categoryBox">
-							<img src="image/category/culture.png" class="categoryIcon"/>
+							<img src="image/category/culture.png" class="categoryIcon" />
 							<p class="categoryInfo">문화</p>
 						</div>
 						<div class="categoryBox">
-							<img src="image/category/shopping.png" class="categoryIcon"/>
+							<img src="image/category/shopping.png" class="categoryIcon" />
 							<p class="categoryInfo">쇼핑</p>
 						</div>
 						<div class="categoryBox">
-							<img src="image/category/travel.svg" class="categoryIcon"/>
+							<img src="image/category/travel.svg" class="categoryIcon" />
 							<p class="categoryInfo">여행</p>
 						</div>
 						<div class="categoryBox">
-							<img src="image/category/digital-content.png" class="categoryIcon"/>
+							<img src="image/category/digital-content.png"
+								class="categoryIcon" />
 							<p class="categoryInfo">OTT</p>
 						</div>
 						<div class="categoryBox">
-							<img src="image/category/cvs.png" class="categoryIcon"/>
+							<img src="image/category/cvs.png" class="categoryIcon" />
 							<p class="categoryInfo">편의점</p>
 						</div>
 					</div>
-					<div id="cardList">
-						
-					</div>
+					<div id="cardList"></div>
 				</div>
 			</div>
 		</div>

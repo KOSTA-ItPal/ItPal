@@ -148,8 +148,10 @@ ul {
 
 #MGMT-2 {
 	width: 100%;
-	margin-top: 50px;
 	background-color: #F9FCFF;
+	display: flex;
+	flex-direction: column;
+	align-content: space-evenly;
 }
 
 /* budget & saving section css */

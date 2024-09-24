@@ -9,20 +9,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="mypage.css"><!-- CSS 파일 링크 -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="mypage.css">
+<!-- CSS 파일 링크 -->
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <title>잇플(ItPal):: 마이페이지</title>
 </head>
 <body>
-	<jsp:include page="header.html" />	
+	<jsp:include page="header.html" />
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<div id="myInfo">
-				<div id="myInfo-content">${user.userName}님 자산관리</div>
+				<div id="myInfo-content">${user.userName}님자산관리</div>
 			</div>
 			<div id="MGMT-13">
 				<div id="MGMT-1">
@@ -100,57 +107,6 @@
 						</div>
 					</c:if>
 				</div>
-				<div id="MGMT-4">
-			<div id="MGMT-41">
-				<div id="pieChart">
-					<p>
-						<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소비액 순</strong>
-					</p>
-					<p>
-						<strong>소비 횟수 순</strong>
-					</p>
-					<canvas id="pieChart-sum" width="250" height="250"
-						style="display: block; box-sizing: border-box; height: 250px; width: 250px;"></canvas>
-
-					<canvas id="pieChart-count" width="250" height="250"
-						style="display: block; box-sizing: border-box; height: 250px; width: 250px;"></canvas>
-				</div>
-				<div id="pieChart-mess">
-					<h2>소비패턴분석</h2>
-					<hr>
-					<div class="section">
-						<p>
-							<strong>소비액 순</strong>
-						</p>
-						<ul id="sumpattern-list">
-							<c:forEach var="entry" items="${sortedCntpattern}" begin="0"
-								end="2" varStatus="status">
-								<li>Top${status.index + 1}. ${entry.key}</li>
-							</c:forEach>
-						</ul>
-					</div>
-					<div class="section">
-						<p>
-							<strong>소비 횟수 순</strong>
-						</p>
-						<ul id="cntpattern-list">
-							<c:forEach var="entry" items="${sortedCntpattern}" begin="0"
-								end="2" varStatus="status">
-								<li>Top${status.index + 1}. ${entry.key}</li>
-							</c:forEach>
-						</ul>
-
-					</div>
-				</div>
-			</div>
-			<div id="MGMT-42">
-				<canvas id="barChart" width="400" height="300"
-					style="display: block; box-sizing: border-box; height: 300px; width: 400px;"></canvas>
-				<div id="barChart-mess">
-					<h2>전월 대비 지출액 증감</h2>
-					<h4 id="spending">데이터</h4>
-				</div>
-			</div>
 				<div id="MGMT-3">
 					<!-- 저축 목표액 설정이 되어있지 않을 때 -->
 					<c:if test="${saving==0}">
@@ -238,102 +194,161 @@
 					</c:if>
 				</div>
 			</div>
+
 			<div id="MGMT-4">
 				<div id="MGMT-41">
-					<form action="cardsearch.jsp">
-						<input type="submit" value="card">
-					</form>
+					<div id="pieChart">
+						<p>
+							<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소비액 순</strong>
+						</p>
+						<p>
+							<strong>소비 횟수 순</strong>
+						</p>
+						<canvas id="pieChart-sum" width="250" height="250"
+							style="display: block; box-sizing: border-box; height: 250px; width: 250px;"></canvas>
+
+						<canvas id="pieChart-count" width="250" height="250"
+							style="display: block; box-sizing: border-box; height: 250px; width: 250px;"></canvas>
+					</div>
+					<div id="pieChart-mess">
+						<h2>소비패턴분석</h2>
+						<hr>
+						<div class="section">
+							<p>
+								<strong>소비액 순</strong>
+							</p>
+							<ul id="sumpattern-list">
+								<c:forEach var="entry" items="${sortedCntpattern}" begin="0"
+									end="2" varStatus="status">
+									<li>Top${status.index + 1}. ${entry.key}</li>
+								</c:forEach>
+							</ul>
+						</div>
+						<div class="section">
+							<p>
+								<strong>소비 횟수 순</strong>
+							</p>
+							<ul id="cntpattern-list">
+								<c:forEach var="entry" items="${sortedCntpattern}" begin="0"
+									end="2" varStatus="status">
+									<li>Top${status.index + 1}. ${entry.key}</li>
+								</c:forEach>
+							</ul>
+
+						</div>
+					</div>
 				</div>
-				<div id="MGMT-42"></div>
+				<div id="MGMT-42">
+					<canvas id="barChart" width="400" height="300"
+						style="display: block; box-sizing: border-box; height: 300px; width: 400px;"></canvas>
+					<div id="barChart-mess">
+						<h2>전월 대비 지출액 증감</h2>
+						<h4 id="spending">데이터</h4>
+					</div>
+				</div>
 			</div>
 			<div id="MGMT-2">
-        <div id ="asset">
-            <div style="text-align: center; font-size: 40pt;">총자산 현황</div>
-            <div id = "showAmount">
-                <div>총 자산 금액 </div>
-                <div id = "totalAmount"> 
-                	<fmt:formatNumber value="${totalAsset}" pattern="#,###"/>원
-                </div>
-            </div>
-        </div>
-		<div id ="demandAccount"> 
-			<div class = "accountInfo">입출금</div>
-			<c:choose>
-				<c:when test="${fn:length(demandAccounts)== 0}">
-					<div style="padding: 30px;">가지고 있는 입출금 통장이 없습니다.</div>
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="demandAccounts" items="${demandAccounts}">
-						<div class ="account">
-							<div class = "logoAndInfo">
-								<img class = "bankLogo" src="img/bank_logo/${demandAccounts.bankName}.png" > 
-								<div>
-									<div>${demandAccounts.bankName}</div>
-									<div class ="accountNumber">${demandAccounts.accountNum}</div>
-								</div>
-							</div>
-							<div class ="amount">
-								<fmt:formatNumber value="${demandAccounts.balance}" pattern="#,###"/>원
-							</div>
-						</div>	
-					</c:forEach>				
-				</c:otherwise>
-			</c:choose>	
-		</div>
-		
-		<div id ="fixedAccount">
-			<div class = "accountInfo">예금</div>
-			<c:choose>
-				<c:when test="${fn:length(fixedAccounts)== 0}">
-					<div style="padding: 30px;">가지고 있는 예금 통장이 없습니다.</div>
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="fixedAccounts" items="${fixedAccounts}">
-						<div class ="account">
-							<div class = "logoAndInfo">
-								<img class = "bankLogo" src="img/bank_logo/${fixedAccounts.bankName}.png" > 
-								<div>
-									<div>${fixedAccounts.bankName}</div>
-									<div class ="accountNumber">${fixedAccounts.accountNum}</div>
-								</div>
-							</div>
-							<div class ="amount">
-								<fmt:formatNumber value="${fixedAccounts.balance}" pattern="#,###"/>원
-							</div>
-						</div>	
-					</c:forEach>				
-				</c:otherwise>
-			</c:choose>		
+				<div id="asset">
+					<div style="text-align: center; font-size: 40pt;">총자산 현황</div>
+					<div id="showAmount">
+						<div>총 자산 금액</div>
+						<div id="totalAmount">
+							<fmt:formatNumber value="${totalAsset}" pattern="#,###" />
+							원
+						</div>
+					</div>
+				</div>
+				<div id="accounts">
+					<div id="demandAccount">
+						<div class="accountInfo">입출금</div>
+						<c:choose>
+							<c:when test="${fn:length(demandAccounts)== 0}">
+								<div style="padding: 30px;">가지고 있는 입출금 통장이 없습니다.</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="demandAccounts" items="${demandAccounts}">
+									<div class="account">
+										<div class="logoAndInfo">
+											<img class="bankLogo"
+												src="img/bank_logo/${demandAccounts.bankName}.png">
+											<div>
+												<div>${demandAccounts.bankName}</div>
+												<div class="accountNumber">${demandAccounts.accountNum}</div>
+											</div>
+										</div>
+										<div class="amount">
+											<fmt:formatNumber value="${demandAccounts.balance}"
+												pattern="#,###" />
+											원
+										</div>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</div>
 
+					<div id="fixedAccount">
+						<div class="accountInfo">예금</div>
+						<c:choose>
+							<c:when test="${fn:length(fixedAccounts)== 0}">
+								<div style="padding: 30px;">가지고 있는 예금 통장이 없습니다.</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="fixedAccounts" items="${fixedAccounts}">
+									<div class="account">
+										<div class="logoAndInfo">
+											<img class="bankLogo"
+												src="img/bank_logo/${fixedAccounts.bankName}.png">
+											<div>
+												<div>${fixedAccounts.bankName}</div>
+												<div class="accountNumber">${fixedAccounts.accountNum}</div>
+											</div>
+										</div>
+										<div class="amount">
+											<fmt:formatNumber value="${fixedAccounts.balance}"
+												pattern="#,###" />
+											원
+										</div>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+
+					</div>
+
+					<div id="installmentAccount">
+						<div class="accountInfo">적금</div>
+						<c:choose>
+							<c:when test="${fn:length(installmentAccounts)== 0}">
+								<div style="padding: 30px;">가지고 있는 적금 통장이 없습니다.</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="installmentAccounts"
+									items="${installmentAccounts}">
+									<div class="account">
+										<div class="logoAndInfo">
+											<img class="bankLogo"
+												src="img/bank_logo/${installmentAccounts.bankName}.png">
+											<div>
+												<div>${installmentAccounts.bankName}</div>
+												<div class="accountNumber">${installmentAccounts.accountNum}</div>
+											</div>
+										</div>
+										<div class="amount">
+											<fmt:formatNumber value="${installmentAccounts.balance}"
+												pattern="#,###" />
+											원
+										</div>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
+			</div>
 		</div>
-		
-		<div id ="installmentAccount">
-			<div class = "accountInfo">적금</div> 
-			<c:choose>
-				<c:when test="${fn:length(installmentAccounts)== 0}">
-					<div style="padding: 30px;">가지고 있는 적금 통장이 없습니다.</div>
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="installmentAccounts" items="${installmentAccounts}">						
-						<div class ="account">
-							<div class = "logoAndInfo">
-								<img class = "bankLogo" src="img/bank_logo/${installmentAccounts.bankName}.png" > 
-								<div>
-									<div>${installmentAccounts.bankName}</div>
-									<div class ="accountNumber">${installmentAccounts.accountNum}</div>
-								</div>
-							</div>
-							<div class ="amount">
-								<fmt:formatNumber value="${installmentAccounts.balance}" pattern="#,###"/>원
-							</div>
-						</div>	
-					</c:forEach>				
-				</c:otherwise>
-			</c:choose>	
-		</div>
-    </div>
-</div>
-<script type="text/javascript">
+	</div>
+	<script type="text/javascript">
 		
 	function formatNumber(inputs) {
 	    inputs.forEach(id => {
