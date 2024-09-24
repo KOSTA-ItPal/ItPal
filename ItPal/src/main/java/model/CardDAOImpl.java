@@ -6,11 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import java.util.Map;
+import java.util.Scanner;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
 import model.vo.Card;
 import model.vo.User;
 
@@ -45,14 +45,14 @@ public class CardDAOImpl implements CardDAO {
 //      }
 //      return conn;
 //  }	
-  
+ 
 	private DataSource ds;
 	
 	// 싱글톤
 	private static CardDAOImpl dao = new CardDAOImpl();
 
-	  private CardDAOImpl() {
-		try {
+	private CardDAOImpl() {
+	  try {
 			InitialContext ic = new InitialContext();
 			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
 			System.out.println("DataSource lookup...Success~~!!");
@@ -67,7 +67,7 @@ public class CardDAOImpl implements CardDAO {
 
     @Override
     public Connection getConnect() throws SQLException {
-		System.out.println("디비 연결 성공...");
+    	System.out.println("디비 연결 성공...");
 		return ds.getConnection();
     }
 
@@ -157,8 +157,8 @@ public class CardDAOImpl implements CardDAO {
 
 	@Override
 	public ArrayList<Card> showAllCards(String cardType) throws SQLException {
-		ArrayList<Card> list = new ArrayList<>();
-		String query = "select card_no, card_name, img_url, c_url, company_name, card_detail, annual_fee, card_type, view from card where card_type=? order by card_no desc";
+		ArrayList<Card> list = new ArrayList();
+		String query = "select card_no, card_name, img_url, c_url, company_name, card_detail, annual_fee, card_type, view from card where card_type=? order by card_no";
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
