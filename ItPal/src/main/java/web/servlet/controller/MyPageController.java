@@ -17,13 +17,18 @@ public class MyPageController implements Controller {
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
 
-		String path = "mypage.jsp";
+		String path = "login.jsp";
 		boolean isRedirect = false;
 		
 		HttpSession session = request.getSession();
 		//로그인 정보가 없어서 사용
 		//User user = new User("user1", "Kim Minji", "pass1", "010-1234-5678", "minji.kim@test.com", "1992-05-15", 0, 0);
 		User user = (User) session.getAttribute("user");
+		
+		if (user == null) {
+			isRedirect = true;
+			return new ModelAndView(path,isRedirect);
+		}
 		
 		try {
 			
