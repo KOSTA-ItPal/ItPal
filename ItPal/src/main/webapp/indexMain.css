@@ -1,12 +1,7 @@
 @charset "UTF-8";
 @import url('https://fonts.cdnfonts.com/css/hubot-sans');
-/* * { box-sizing: border-box; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth;} */
 
 .main { height: 100%; }
-
-/* html::-webkit-scrollbar { display: none; }
-
-html { -ms-overflow-style: none; scrollbar-width: none; } */
 
 .main {
     margin: 0;
@@ -17,7 +12,7 @@ html { -ms-overflow-style: none; scrollbar-width: none; } */
     --_size: min(var(--_factor), 80vw);
 }
 
-.main.gold .header h2 ,
+.main.gold .header h2 , 
 .main.gold p,
 .main.gold > * > * :not(.contact-btn) {
     filter: invert(1) brightness(4.7);
@@ -119,8 +114,6 @@ h2 a {
 .main.gold .header > div.mid-spot {
     box-shadow: 0 0 1em 0 #d8bd10;
 }
-
-
 
 .contact-btn-content {
     background: linear-gradient(0deg, #d8ecf8, #98c0ef);

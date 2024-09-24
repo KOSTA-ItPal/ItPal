@@ -41,7 +41,7 @@ public class CardSearch2Controller implements Controller {
 				
 				String cardDetail = card.getCardDetail(); //cardDetail == str
 				cardDetail = cardDetail.replaceAll("\\[[가-힣 A-Za-z0-5\\%]+\\][ ]?", "");
-	            String strArr[] = cardDetail.split("-([가-힣A-Z]+[\\/]?[가-힣A-Z]+)-",5);
+	            String strArr[] = cardDetail.split("-([가-힣A-Z]+[\\/]?[가-힣A-Z]+)-", 5);
 	            
 	            if(cardDetail.length() == 0 ) // 이 부분은 뭐지?	
 	                details.add(cardDetail);	       
