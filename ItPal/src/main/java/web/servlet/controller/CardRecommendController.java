@@ -24,7 +24,7 @@ public class CardRecommendController implements Controller {
 			
 			//User user = (User) request.getSession().getAttribute("user");
 			
-			User user = new User( "user1", "Kim Minji", "pass1", "010-1234-5678", "minji.kim@test.com", "1992-05-15", 0, 0);
+			User user = new User( "user1", "홍길동", "pass1", "010-1234-5678", "test1234@test.com", "1992-05-15", 0, 0);
 			request.getSession().setAttribute("user", user);
 			
 			if( user != null) {
