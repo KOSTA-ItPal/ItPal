@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,35 +12,6 @@ import javax.sql.DataSource;
 import model.vo.User;
 
 public class UserDAOImpl implements UserDAO {
-//	static String driver = "com.mysql.cj.jdbc.Driver";
-//	static String url = "jdbc:mysql://127.0.0.1:3306/itpal?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8";
-//	static String user = "root";
-//	static String pass = "1234";
-//	
-//	//싱글톤
-//		private static UserDAOImpl dao = new UserDAOImpl();
-//		private UserDAOImpl() {
-//			try {
-//				Class.forName(driver);
-//				System.out.println("1. 드라이버 로딩 성공");
-//			} catch (ClassNotFoundException e) {
-//				System.out.println("1. 드라이버 로딩 실패");
-//			}finally {
-//				System.out.println("1. 드라이버 로딩 완료");
-//			}
-//		}
-//		public static UserDAOImpl getInstance() {
-//			return dao;
-//		}
-//		
-//	/////////////////////////////// 공통 로직 //////////////////////////////////
-//	
-//	@Override
-//	public Connection getConnect() throws SQLException {
-//		Connection conn = DriverManager.getConnection(url, user, pass);
-//		System.out.println("2. DB 연결 성공");
-//		return conn;
-//	}
 
 	private DataSource ds;
 	
@@ -58,9 +28,6 @@ public class UserDAOImpl implements UserDAO {
 				System.out.println("DataSource lookup...Fail~~!!");
 			}
 		}
-	
-		
-	/////////////////////////////// 공통 로직 //////////////////////////////////
 	
 	@Override
 	public Connection getConnect() throws SQLException {
