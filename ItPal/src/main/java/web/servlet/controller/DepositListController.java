@@ -1,5 +1,6 @@
 package web.servlet.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -18,6 +19,9 @@ public class DepositListController implements Controller{
 		ModelAndView modelAndView = null;
 		
 		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=utf-8");
+			
 			//1. dao 호출
     		ArrayList<Deposit> deposits = DepositDAOImpl.getInstance().showAllDeposit();
 			System.out.println("1. getInstance() 성공");
@@ -30,7 +34,8 @@ public class DepositListController implements Controller{
 			modelAndView = new ModelAndView("depositsearch.jsp", false);
 			
 			System.out.println("depositList.do 성공");
-		} catch (SQLException e) {
+			
+		} catch (SQLException | UnsupportedEncodingException e) {
 			//3. 실패시 경로, 페이지 이동 방법
 			modelAndView = new ModelAndView("index.jsp", true);
 			System.err.println("[Error] : depositList.do 실패");

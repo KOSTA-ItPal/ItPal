@@ -33,38 +33,48 @@
 
 <style>
 .jumbotron {
-	border: 1px solid black;
+}
+.jumbotron-fluid{
+	background: none;
 }
 
 .container {
 	padding: 0;
-	border: 1px solid red;
 }
 
 #cardCategoryContainer {
 	width: 100%;
-	height: 500px;
-	border: 1px solid black;
+	height: 550px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
 	text-align: left;
-	background-color: lightgray;
+ 	background-color: #F4F6FA;
+ 	padding-bottom: 30px; 	
+}
+
+div#cardNew-box, div#cardHOT-box{
+	box-sizing: border-box;
+	border: 0px;
+	background: none;
 }
 
 #cardNew, #cardHOT {
 	background-color: white;
-	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+	width: 90%;
+	height: 81%;
+	margin : -2.4% auto;
+		box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#cardNew img, #cardHOT img {
-	object-fit: center;
-	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-	width: 40px;
+  #cardNew img, #cardHOT img {
+	object-fit: contain;
+	filter:drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.2));
+	width: 120px;
 	height: 120px;
-	margin: 20px 100px;
-}
+	margin: 11px 50px;
+} 
 
 #cardHOT>button {
 	display: none;
@@ -80,28 +90,30 @@
 }
 
 .slick-prev-new {
-	position: absolute;
-	left: 21%;
-	top: 32%; /* 위치 조정 */
+    position: relative;
+    left: 1%;
+    top: 35%; /* 위치 조정 */
 }
 
 .slick-next-new {
-	position: absolute;
-	right: 20.5%;
-	top: 32%; /* 위치 조정 */
+	position: relative;
+	left: 95%;
+	top: -35%; /* 위치 조정 */
 }
 
 .slick-prev-hot {
-	position: absolute;
-	left: 21%;
-	top: 58%; /* 위치 조정 */
+    position: relative;
+    left: 1%;
+    top: 35%; /* 위치 조정 */
 }
 
 .slick-next-hot {
-	position: absolute;
-	right: 20.5%;
-	top: 58%; /* 위치 조정 */
+	position: relative;
+	left: 95%;
+	top: -35%; /* 위치 조정 */
 }
+
+
 </style>
 
 
@@ -316,32 +328,37 @@ $(() => {
 </script>
 </head>
 <body>
-	<jsp:include page="header.html" />
+	<jsp:include page="header.html"></jsp:include>
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<!-- 승현이 작성 -->
 			<div id="cardCategoryContainer">
-				<h1 style="align-self: flex-start; margin-left: 5%;">New</h1>
 
-				<div id="cardNew">
-					<c:forEach items="${vo}" var="vo">
-						<img alt="${vo.cardName}" src="${vo.imgUrl}" />
-					</c:forEach>
+				<div id="cardNew-box">
+								<h1 style="align-self: flex-start; margin-left: 5%;">New ✨</h1>
+				
+					<img class="slick-arrow slick-prev-new" src="arrow-left.png">
+					<div id="cardNew">
+						<c:forEach items="${vo}" var="vo">
+							<img alt="${vo.cardName}" src="${vo.imgUrl}" />
+						</c:forEach>
+					</div>
+					<img class="slick-arrow slick-next-new" src="arrow-right.png">
 				</div>
 
-				<img class="slick-arrow slick-prev-new" src="arrow-left.png">
-				<img class="slick-arrow slick-next-new" src="arrow-right.png">
-
-
-				<h1 style="align-self: flex-start; margin-left: 5%;">HOT</h1>
-
-				<div id="cardHOT">
-					<c:forEach items="${no}" var="vo">
-						<img alt="${vo.cardName}" src="${vo.imgUrl}" />
-					</c:forEach>
+				<br>
+				
+				<div id="cardHOT-box">
+								<h1 style="align-self: flex-start; margin-left: 5%;">Hot 🔥</h1>
+				
+					<img class="slick-arrow slick-prev-hot" src="arrow-left.png">
+					<div id="cardHOT">
+						<c:forEach items="${no}" var="vo">
+							<img alt="${vo.cardName}" src="${vo.imgUrl}" />
+						</c:forEach>
+					</div>
+					<img class="slick-arrow slick-next-hot" src="arrow-right.png">
 				</div>
-				<img class="slick-arrow slick-prev-hot" src="arrow-left.png">
-				<img class="slick-arrow slick-next-hot" src="arrow-right.png">
 
 			</div>
 			<div id="cardRecommand">

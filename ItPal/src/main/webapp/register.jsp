@@ -65,7 +65,8 @@ $(() => {
 </script>
 </head>
 <body>
-<header></header>
+	<jsp:include page="header.html" />
+
 <div id="one">더 좋은 서비스를 제공받기 위해 계정을 등록하세요.</div>
 
 <div id="frmContainer">

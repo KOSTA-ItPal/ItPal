@@ -11,6 +11,30 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <title>Insert title here</title>
 <style>
+	 /* 웹폰트(세가지 굵기) */
+      @font-face {
+        font-family: "LINESeedKR-Th";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Th.woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "LINESeedKR-Rg";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Rg.woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "LINESeedKR-Bd";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+	
+	body{
+		font-family: "LINESeedKR-Rg";
+	}
+	
 	#header2 {
 		display: flex;
 		align-items: center;
@@ -59,7 +83,7 @@
 	<div class="section first">
 		<div class="main">
 			<div id="header2">
-				<span id="home"><a href="index.html"><img src="./img/logo_itpal.png" alt="" /></a></span>
+				<span id="home"><a href="index.html"><img src="./img/logo_itpal_white.png" alt="" /></a></span>
 		<div id="nav">
 			<ul>
 				<li><a href="myPage.do">개인 자산 관리</a></li>
@@ -68,7 +92,7 @@
 			</ul>
 		</div>
 		
-		<span id="login"><a href="login.jsp"><img src="./img/icon_login_V2.png" alt="" /></a></span>
+		<span id="login"><a href="login.jsp"><img src="./img/icon_login_V2_white.png" alt="" /></a></span>
 			</div>
 			<div class="header">
 			    <div class="mid-spot" onclick="document.querySelector('.main').classList.toggle('gold');"></div>

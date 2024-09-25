@@ -120,12 +120,6 @@
         gap: 12px;
         margin: 0;
       }
-      #header {
-        width: 100%;
-        height: 70px;
-        margin-bottom: 20px;
-        background: #ececec;
-      }
       /* 예적금 계산기 결과 정렬 */
       .result-interestAmount,
       .result-maturityAmount {
@@ -150,7 +144,6 @@
         flex-direction: column;
         align-items: center;
         gap: 40px;
-        min-width: 1140px;
       }
 
       #page {
@@ -1086,4 +1079,3 @@
     </div>
   </body>
 </html>
->>>>>>> dev:ItPal/src/main/webapp/depositsearch.jsp

@@ -249,7 +249,7 @@
 			</div>
 			<div id="MGMT-2">
 				<div id="asset">
-					<div style="text-align: center; font-size: 40pt;">총자산 현황</div>
+					<div style="text-align: center; font-size: 30px;">총자산 현황</div>
 					<div id="showAmount">
 						<div>총 자산 금액</div>
 						<div id="totalAmount">
