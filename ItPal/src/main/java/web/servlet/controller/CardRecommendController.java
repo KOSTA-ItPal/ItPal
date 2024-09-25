@@ -20,10 +20,7 @@ public class CardRecommendController implements Controller {
 		
 		try {
 			
-			//User user = (User) request.getSession().getAttribute("user");
-			
-			User user = new User( "user1", "Kim Minji", "pass1", "010-1234-5678", "minji.kim@test.com", "1992-05-15", 0, 0);
-			request.getSession().setAttribute("user", user);
+			User user = (User) request.getSession().getAttribute("user");
 			
 			if( user != null) {
 				
@@ -76,17 +73,16 @@ public class CardRecommendController implements Controller {
 					}
 					 
 				}
-			
-			
-				  System.out.println("카드 리스트 별 카드 디테일\n"); 
-				  for(int i=0; i<cardDetails.size(); i++) { 
-					  for(int j =0; j< cardDetails.get(i).size(); j++) 
-						  System.out.println(i + " " + j + " : " + cardDetails.get(i).get(j) ); 
-					  
-					  System.out.println("=============\n"); 
-				  }
-				  
-				  System.out.println(cardDetails.size());
+	
+//				  System.out.println("카드 리스트 별 카드 디테일\n"); 
+//				  for(int i=0; i<cardDetails.size(); i++) { 
+//					  for(int j =0; j< cardDetails.get(i).size(); j++) 
+//						  System.out.println(i + " " + j + " : " + cardDetails.get(i).get(j) ); 
+//					  
+//					  System.out.println("=============\n"); 
+//				  }
+//				  
+//				  System.out.println(cardDetails.size());
 				
 
 				request.setAttribute("cardListByCategoryMap", cardListByCategoryMap);

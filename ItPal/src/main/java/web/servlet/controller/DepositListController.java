@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.DepositDAOImpl;
 import model.vo.Deposit;
-import web.servlet.controller.Controller;
-import web.servlet.controller.ModelAndView;
 
 public class DepositListController implements Controller{
 
@@ -37,7 +35,7 @@ public class DepositListController implements Controller{
 			
 		} catch (SQLException | UnsupportedEncodingException e) {
 			//3. 실패시 경로, 페이지 이동 방법
-			modelAndView = new ModelAndView("index.jsp", true);
+			modelAndView = new ModelAndView("index.html", true);
 			System.err.println("[Error] : depositList.do 실패");
 		} //try-catch
 		return modelAndView;

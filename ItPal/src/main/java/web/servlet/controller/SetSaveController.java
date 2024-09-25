@@ -1,8 +1,6 @@
 package web.servlet.controller;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,10 +15,9 @@ public class SetSaveController implements Controller {
 		String savingString = request.getParameter("saving");
 		String path = "myPage.do";
 		HttpSession session = request.getSession();
-		//로그인 정보가 없어서 사용
-		User user = new User("user1", "Kim Minji", "pass1", "010-1234-5678", "minji.kim@test.com", "1992-05-15", 0, 0);
-		//User user = (User) session.getAttribute("user");
 		
+		//로그인 정보가 없어서 사용
+		User user = (User) session.getAttribute("user");
 		
 		try {
 			//input 받은 saving 쉼표제거 처리 & 숫자 변환

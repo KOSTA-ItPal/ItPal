@@ -17,6 +17,8 @@ public class SetBudgetController implements Controller {
 		String budgetString = request.getParameter("budget");
 		String path = "myPage.do";
 		HttpSession session = request.getSession();
+		
+		
 		//로그인 정보가 없어서 사용
 		//User user = new User("user1", "Kim Minji", "pass1", "010-1234-5678", "minji.kim@test.com", "1992-05-15", 0, 0);
 		User user = (User) session.getAttribute("user");
