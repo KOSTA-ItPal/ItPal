@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.model.CardImpl;
-import main.java.model.vo.Card;
+import model.CardDAOImpl;
+import model.vo.Card;
+
 
 public class CardListController implements Controller{
 
@@ -17,8 +18,8 @@ public class CardListController implements Controller{
 		String path="index.jsp";
 		
 		try {
-			ArrayList<Card> newCard = CardImpl.getInstance().showNewCards();
-			ArrayList<Card> hotCard = CardImpl.getInstance().showHotCards();
+			ArrayList<Card> newCard = CardDAOImpl.getInstance().showNewCards();
+			ArrayList<Card> hotCard = CardDAOImpl.getInstance().showHotCards();
 			request.setAttribute("vo", newCard);
 			request.setAttribute("no", hotCard );
 			
