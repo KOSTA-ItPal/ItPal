@@ -19,8 +19,9 @@ public class CardRecommendController implements Controller {
 		boolean isRedirect = false;
 		
 		try {
-			
-			User user = (User) request.getSession().getAttribute("user");
+	
+			User user = (User) request.getSession().getAttribute("user");			
+			request.getSession().setAttribute("user", user);
 			
 			if( user != null) {
 				
