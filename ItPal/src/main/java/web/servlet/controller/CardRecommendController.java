@@ -2,13 +2,11 @@ package web.servlet.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.CardDAOImpl;
-import model.UserDAOImpl;
 import model.vo.Card;
 import model.vo.User;
 
@@ -21,10 +19,8 @@ public class CardRecommendController implements Controller {
 		boolean isRedirect = false;
 		
 		try {
-			
-			//User user = (User) request.getSession().getAttribute("user");
-			
-			User user = new User( "user1", "홍길동", "pass1", "010-1234-5678", "test1234@test.com", "1992-05-15", 0, 0);
+	
+			User user = (User) request.getSession().getAttribute("user");			
 			request.getSession().setAttribute("user", user);
 			
 			if( user != null) {
@@ -78,17 +74,16 @@ public class CardRecommendController implements Controller {
 					}
 					 
 				}
-			
-			
-				  System.out.println("카드 리스트 별 카드 디테일\n"); 
-				  for(int i=0; i<cardDetails.size(); i++) { 
-					  for(int j =0; j< cardDetails.get(i).size(); j++) 
-						  System.out.println(i + " " + j + " : " + cardDetails.get(i).get(j) ); 
-					  
-					  System.out.println("=============\n"); 
-				  }
-				  
-				  System.out.println(cardDetails.size());
+	
+//				  System.out.println("카드 리스트 별 카드 디테일\n"); 
+//				  for(int i=0; i<cardDetails.size(); i++) { 
+//					  for(int j =0; j< cardDetails.get(i).size(); j++) 
+//						  System.out.println(i + " " + j + " : " + cardDetails.get(i).get(j) ); 
+//					  
+//					  System.out.println("=============\n"); 
+//				  }
+//				  
+//				  System.out.println(cardDetails.size());
 				
 
 				request.setAttribute("cardListByCategoryMap", cardListByCategoryMap);

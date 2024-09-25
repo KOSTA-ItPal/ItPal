@@ -61,6 +61,15 @@ public class User {
 		this.accountList = accountList;
 	}
 
+	public User(String userId, String userName, String userPwd
+			) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.userPwd = userPwd;
+		
+	}
+	
 	public String getUserId() {
 		return userId;
 	}

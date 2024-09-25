@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<header></header>
+	<jsp:include page="header.html"></jsp:include>
 <div id="one">더 좋은 서비스를 제공받기 위해 로그인하세요.</div>
 <div id="two">
 	<div id="two-1">잇플에 로그인하세요</div>

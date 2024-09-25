@@ -97,8 +97,8 @@ public class DepositDAOImpl implements DepositDAO{
 		ResultSet rs = null;
 		ArrayList<Deposit> list = new ArrayList<>();
 		
-		String query = "SELECT d.product_name pname, d.before_tax_rate btr, d.after_tax_rate atr, d.target target, d.cal_method cmethod, d.prime_cond pcond, d.d_url durl, d.register_type rtype, d.deposit_type dtype, d.deposit_period dperiod, d.bank_name bname, b.bank_type btype FROM Deposit d "
-				+ "JOIN Bank b ON d.bank_name = b.bank_name "
+		String query = "SELECT d.product_name pname, d.before_tax_rate btr, d.after_tax_rate atr, d.target target, d.cal_method cmethod, d.prime_cond pcond, d.d_url durl, d.register_type rtype, d.deposit_type dtype, d.deposit_period dperiod, d.bank_name bname, b.bank_type btype FROM deposit d "
+				+ "JOIN bank b ON d.bank_name = b.bank_name "
 				+ "WHERE ('전체예적금' = ? OR d.deposit_type = ?) AND ('전체권역' = ? OR b.bank_type = ?) AND ('전체기간' = ? OR d.deposit_period = ?) AND ('전체방식' = ? OR d.cal_method = ?)";
 	   
 		try {

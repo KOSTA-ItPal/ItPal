@@ -1,3 +1,23 @@
+/* 웹폰트(세가지 굵기) */
+      @font-face {
+        font-family: "LINESeedKR-Th";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Th.woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "LINESeedKR-Rg";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Rg.woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "LINESeedKR-Bd";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+
 /* 전체적으로 기본적인 스타일 */
 body, html {
     margin: 0;
@@ -160,7 +180,7 @@ body, html {
 }
 
 #secondTitle {
-    font-weight: bold;
+    font-family: "LINESeedKR-Bd";
     font-size: 65px;
     margin-top: 20px;
     
@@ -251,7 +271,7 @@ body, html {
 }
 
 #thirdTitle {
-    font-weight: bold;
+    font-family: "LINESeedKR-Bd";
     font-size: 65px;
     margin-top: 20px;
 
