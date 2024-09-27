@@ -1,10 +1,11 @@
-##  :bank: 프로젝트 개요
+##  :bank: 프로젝트 소개
 진행 기간 : 2024.09.09 ~ 2024.09.25 <br>
 자산 관리 Web 서비스를 개발한 프로젝트입니다. <br>
-해당 프로젝트의 주요 기능은 아래와 같습니다.
-1. 권장 소비액 설정, 저축현황 확인, 계좌 목록 확인, 소비 패턴 분석을 통해 개인 자산을 관리할 수 있습니다. 
-2. 사용자의 결제 내역을 분석해 맞춤형 카드를 추천합니다.
-3. 예/적금을 검색하고, 예적금 계산기 기능을 통해 만기액을 확인할 수 있습니다.
+
+![image](https://github.com/user-attachments/assets/c12028f1-0032-4fa8-b988-1ae16fb263bc)
+![image](https://github.com/user-attachments/assets/d09841a9-626a-4f91-98bf-53a66f16c973)
+
+
 
 <br>
 
@@ -21,7 +22,9 @@
 <br>
 
 ## :bank: 사용한 기술 스택 
+![image](https://github.com/user-attachments/assets/15faaa4f-0441-4610-b09e-f098fc75bd0c)
 
+<!--
 <div class= Back & DB>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
   <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
@@ -41,9 +44,16 @@
   <img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white">
   <img src="https://img.shields.io/badge/jira-0052CC?style=for-the-badge&logo=jira&logoColor=white">
 </div>
+-->
 
 <br>
 
+
+##  :bank: ERD
+![image](https://github.com/user-attachments/assets/bdfcfe11-a38e-4145-a8ff-1216b1d18f14)
+
+
+<br>
 
 ##  :bank: 화면 
 
