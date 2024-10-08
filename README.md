@@ -58,22 +58,24 @@
 ##  :bank: 화면 
 
 ### 메인페이지
+![main화면](https://github.com/user-attachments/assets/6e53fafe-31c7-4798-80c2-4ca39b0bd169)
 
 <br>
 
 ### 개인 자산 관리 페이지
+[MGMT.webm](https://github.com/user-attachments/assets/58b20228-c6f0-44f1-8629-11b31b925875)
 
 <br>
 
 ### 예/적금 추천 페이지
+[deposit.webm](https://github.com/user-attachments/assets/a13fb18d-9fd4-4336-8f48-55d57f3c02f2)
+
 
 <br>
 
-###  카드 검색 페이지
+###  카드 검색 및  소비 패턴에 따른 카드 추천 페이지
 
-<br>
-
-###  카드 추천 페이지
+[card.webm](https://github.com/user-attachments/assets/a05b2ef7-d77a-42ba-98b3-ff94f7b9d86f)
 
 <br>
 
