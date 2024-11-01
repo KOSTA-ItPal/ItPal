@@ -11,9 +11,9 @@
 
 ## :bank: 팀 구성
 
-|  [김지남](https://github.com/passing7by) |  [박혜린](https://github.com/skyblue1012)  |  [백도현](https://github.com//BaekDoHyeon)  | 
+|  [백도현 (팀장)](https://github.com//BaekDoHyeon)  | [김지남](https://github.com/passing7by) |  [박혜린](https://github.com/skyblue1012)  | 
 | :----------------------------------------------------: | :----------------------------------------------------: | :----------------------------------------------------: |
-| <img src ="https://avatars.githubusercontent.com/u/174698800?v=4" width="150" /> | <img src ="https://avatars.githubusercontent.com/u/121241416?v=4" width="150" /> | <img src ="https://avatars.githubusercontent.com/u/171592911?v=4" width="150" /> |
+| <img src ="https://avatars.githubusercontent.com/u/171592911?v=4" width="150" /> | <img src ="https://avatars.githubusercontent.com/u/174698800?v=4" width="150" /> | <img src ="https://avatars.githubusercontent.com/u/121241416?v=4" width="150" />
 
 |  [신승현](https://github.com/Shin-seung-hyun) |  [이희주](https://github.com/Heeju-Lee)  | 
 | :----------------------------------------------------: | :----------------------------------------------------: |
