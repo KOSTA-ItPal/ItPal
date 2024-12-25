@@ -1,5 +1,5 @@
 ##  :bank: 프로젝트 소개
-진행 기간 : 2024.09.09 ~ 2024.09.25 <br>
+진행 기간 : 2024.09.06 ~ 2024.09.26 <br>
 자산 관리 Web 서비스를 개발한 프로젝트입니다. <br>
 
 ![image](https://github.com/user-attachments/assets/c12028f1-0032-4fa8-b988-1ae16fb263bc)
